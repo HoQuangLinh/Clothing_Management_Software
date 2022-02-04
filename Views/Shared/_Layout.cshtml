@@ -1,0 +1,25 @@
+@using React.AspNet
+<!DOCTYPE html>
+<html>
+
+<head>
+	@Html.Raw(ViewBag.HelmetTitle)
+	<meta charset="utf-8" />
+	<link rel="stylesheet" href="~/Sample.css" />
+	<link rel="stylesheet" href="~/css/Index.css">
+	<link rel="stylesheet" href="~/css/App.css">
+	<link rel="stylesheet" href="~/css/Sidebar.css">
+	<link rel="stylesheet" href="~/css/Navbar.css">
+	<link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+
+	@Html.Raw(ViewBag.ServerStyles)
+	@Html.ReactGetStylePaths()
+</head>
+
+<body>
+	@RenderBody()
+	@Html.ReactGetScriptPaths()
+	@Html.ReactInitJavaScript()
+</body>
+
+</html>
