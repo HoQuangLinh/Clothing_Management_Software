@@ -1,7 +1,9 @@
+using Clothing_Management.Models;
 using JavaScriptEngineSwitcher.ChakraCore;
 using JavaScriptEngineSwitcher.Extensions.MsDependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -28,6 +30,9 @@ namespace React.Sample.Webpack.CoreMvc
 
 			services.AddReact();
 			services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+			services.AddDbContext<ClothingManagementDBContext>(options =>
+				options.UseSqlServer(Configuration.GetConnectionString("ClothingManagementConnection")));
 
 			// Build the intermediate service provider then return it
 			services.BuildServiceProvider();
