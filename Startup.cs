@@ -34,6 +34,8 @@ namespace React.Sample.Webpack.CoreMvc
 			services.AddDbContext<ClothingManagementDBContext>(options =>
 				options.UseSqlServer(Configuration.GetConnectionString("ClothingManagementConnection")));
 
+			
+
 			// Build the intermediate service provider then return it
 			services.BuildServiceProvider();
 		}

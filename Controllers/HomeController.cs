@@ -1,28 +1,35 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Clothing_Management.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Clothing_Management.Controllers
 {
 	public class HomeController : Controller
 	{
-		public ActionResult Index()
-		{
-			return View(new IndexViewModel
-			{
-				Products = null,
-			});
+		//private readonly IList<Product> _products;
+		private readonly ClothingManagementDBContext _context;
+		private readonly IndexViewModel _index;
+
+		public HomeController(ClothingManagementDBContext context)
+        {
+			_context = context;
+			_index = new IndexViewModel();
 		}
 
-		public ActionResult Products()
-		{
-			var products = DataProvider.Instance.DB.Products.ToList();
+		public ActionResult Index()
+        {
+			return View(_index);
+        }
 
-			return View("~/Views/Home/Index.cshtml", new IndexViewModel
-			{
-				Products = products.AsReadOnly(),
-			}) ;
+		[Route("products")]
+		[ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
+		public async Task<ActionResult> Products()
+		{
+			_index.Products = await _context.Products.ToListAsync();
+			return new JsonResult(_index.Products);
 		}
 
 		public class IndexViewModel

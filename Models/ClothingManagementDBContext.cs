@@ -10,9 +10,11 @@ namespace Clothing_Management.Models
     {
         public ClothingManagementDBContext()
         { }
+
         public ClothingManagementDBContext(DbContextOptions<ClothingManagementDBContext> options)
             : base(options)
         { }
+
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Categories> Categories { get; set; }
         public virtual DbSet<User> Users { get; set; }

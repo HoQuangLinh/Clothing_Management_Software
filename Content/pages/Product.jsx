@@ -1,28 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const Product = (props) => {
-    let [state, updateState] = React.useState({
-        products: props.initialProducts,
-    })
+    //let [state, updateState] = React.useState({
+    //    products: props.initialProducts,
+    //})
+    const [products, setProducts] = useState([])
 
-    /*
-    let productNodes = state.products.map(product => (
-        <Item name={product.name}></Item>
-    ))
-    */
-    console.log(state.products)
+    const loadCommentsFromServer = () => {
+        const xhr = new XMLHttpRequest();
+        xhr.open('get', "/products", true);
+        xhr.onload = () => {
+            const data = JSON.parse(xhr.responseText);
+            setProducts(data)
+        };
+        xhr.send();
+    }
+
+    useEffect(() => {
+        loadCommentsFromServer()
+        console.log(products)
+    }, [])
 
     return (
         <div>
             <h1>This is product page</h1>
+            <ol className="productList">
+                {products && products.map(product => (
+                    <li>{product.id} | {product.name}</li>
+                ))}
+            </ol>
         </div>
     );
 };
-
-const Item = (name) => {
-    return (
-        <li>{name}</li>
-    )
-}
 
 export default Product;
