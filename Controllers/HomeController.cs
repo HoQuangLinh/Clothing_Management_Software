@@ -32,6 +32,14 @@ namespace Clothing_Management.Controllers
 			return new JsonResult(_index.Products);
 		}
 
+		[Route("staffs")]
+		[ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
+		public async Task<ActionResult> Staffs()
+		{
+			_index.Products = await _context.Products.ToListAsync();
+			return new JsonResult(_index.Products);
+		}
+
 		public class IndexViewModel
         {
 			public IReadOnlyList<Product> Products { get; set; }

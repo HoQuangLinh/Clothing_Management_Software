@@ -18,7 +18,7 @@ const Product = (props) => {
 
     useEffect(() => {
         loadCommentsFromServer()
-        console.log(products)
+        //console.log(products)
     }, [])
 
     return (
