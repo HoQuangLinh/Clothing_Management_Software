@@ -23,8 +23,13 @@ export default class HomeComponent extends Component {
           <div className="layout__content-routes">
             <Switch>
               <Route exact path="/" render={() => <Redirect to="/home" />} />
-              <Route path="/home" component={Dashboard} />
-              <Route path="/products" component={Product} />
+            <Route path="/home" component={Dashboard} />
+            <Route
+                path="/products"
+                component={() => (
+                    <Product initialProducts={this.props.initialProducts} />
+                )}
+            />
               <Route path="/staffs" component={Staff} />
               <Route
                 path="*"
