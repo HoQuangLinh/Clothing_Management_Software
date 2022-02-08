@@ -12,7 +12,7 @@ import {
 import Navbar from "./components/navbar/Navbar.jsx";
 import Sidebar from "./components/sidebar/Sidebar.jsx";
 import Product from "./pages/Product.jsx";
-import Staff from "./pages/Staff.jsx";
+import Staff from "./pages/staff/Staff.jsx";
 export default class HomeComponent extends Component {
   render() {
     const app = (
@@ -23,13 +23,13 @@ export default class HomeComponent extends Component {
           <div className="layout__content-routes">
             <Switch>
               <Route exact path="/" render={() => <Redirect to="/home" />} />
-            <Route path="/home" component={Dashboard} />
-            <Route
+              <Route path="/home" component={Dashboard} />
+              <Route
                 path="/products"
                 component={() => (
-                    <Product initialProducts={this.props.initialProducts} />
+                  <Product initialProducts={this.props.initialProducts} />
                 )}
-            />
+              />
               <Route path="/staffs" component={Staff} />
               <Route
                 path="*"

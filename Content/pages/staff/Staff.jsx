@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import axios from "axios";
-
+import AddStaff from "./AddStaff.jsx";
 //import UpdateStaff from "./UpdateStaff/UpdateStaff";
 
 const Staff = (props) => {
