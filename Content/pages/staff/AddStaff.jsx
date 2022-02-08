@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 
-import useFormStaff from "../form_validate/useFormStaff";
-import validateStaff from "../form_validate/validateStaff";
+import UseFormStaff from "./form_validate/UseFormStaff";
+import ValidateCreateStaff from "./form_validate/ValidateCreateStaff";
 import axios from "axios";
 
 const AddStaff = ({ setShowFormAddStaff }) => {
@@ -56,8 +56,12 @@ const AddStaff = ({ setShowFormAddStaff }) => {
         alert("Thêm nhân viên thất bại");
       });
   };
-  const { handleChange, handleChangeBirthday, handleSubmit, errors } =
-    useFormStaff(submitForm, staff, setStaff, validateStaff);
+  const { handleChange, handleSubmit, errors } = UseFormStaff(
+    submitForm,
+    staff,
+    setStaff,
+    validateStaff
+  );
   const [avatar, setAvatar] = useState();
   const onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {

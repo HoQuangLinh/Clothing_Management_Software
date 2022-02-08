@@ -17,12 +17,7 @@ const UseFormStaff = (callback, staff, setStaff, validate) => {
       return { ...prev, [name]: value };
     });
   };
-  const handleChangeBirthday = (birthday) => {
-    setStaff((prev) => {
-      console.log(birthday);
-      return { ...prev, birthday: birthday };
-    });
-  };
+
   const handleSubmit = (e) => {
     //check program whether have error or not, if have error then setError
     //if no error then submit form
@@ -32,6 +27,6 @@ const UseFormStaff = (callback, staff, setStaff, validate) => {
     setErrors(validate(staff));
   };
 
-  return { handleChange, handleChangeBirthday, handleSubmit, errors };
+  return { handleChange, handleSubmit, errors };
 };
 export default UseFormStaff;
