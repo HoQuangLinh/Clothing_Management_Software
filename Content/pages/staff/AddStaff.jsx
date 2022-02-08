@@ -1,19 +1,18 @@
 import React, { useState, useRef } from "react";
 
-import UseFormStaff from "./form_validate/UseFormStaff";
-import ValidateCreateStaff from "./form_validate/ValidateCreateStaff";
+import UseFormStaff from "./form_validate/UseFormStaff.jsx";
+import ValidateAddStaff from "./form_validate/ValidateAddStaff.jsx";
 import axios from "axios";
 
 const AddStaff = ({ setShowFormAddStaff }) => {
   const inputAvatarRef = useRef(null);
-  const birthdayRef = useRef(null);
+
   const [staff, setStaff] = useState({
     username: "",
     password: "",
     confirmPassword: "",
     phone: "",
     address: "",
-    birthday: new Date(),
     sex: "",
     email: "",
     fullname: "",
@@ -60,7 +59,7 @@ const AddStaff = ({ setShowFormAddStaff }) => {
     submitForm,
     staff,
     setStaff,
-    validateStaff
+    ValidateAddStaff
   );
   const [avatar, setAvatar] = useState();
   const onImageChange = (event) => {

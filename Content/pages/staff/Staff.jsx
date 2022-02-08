@@ -9,6 +9,7 @@ const Staff = (props) => {
   const [originStaffs, setOriginStaffs] = useState([]);
   const [position, setPosition] = useState("all");
   const [textSearch, setTextSearch] = useState("");
+  const [showFormAddStaff, setShowFormAddStaff] = useState(false);
 
   //Get All Staffs from StaffControler
   useEffect(() => {
@@ -59,6 +60,7 @@ const Staff = (props) => {
   }, [textSearch]);
   return (
     <div className="div_staff">
+      {showFormAddStaff && <AddStaff />}
       <div className="div_left">
         <div className="div_search">
           <div className="header_search">Tìm kiếm</div>
@@ -89,7 +91,11 @@ const Staff = (props) => {
           </select>
         </div>
         <div className="action-staff-btn">
-          <button>
+          <button
+            onClick={() => {
+              setShowFormAddStaff(true);
+            }}
+          >
             <i class="bx bx-plus"></i>
             Thêm nhân viên{" "}
           </button>

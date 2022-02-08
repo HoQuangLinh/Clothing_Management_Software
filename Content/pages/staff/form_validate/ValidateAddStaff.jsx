@@ -1,4 +1,4 @@
-export default function ValidateCreateStaff(staff) {
+export default function ValidateAddStaff(staff) {
   let errors = {};
 
   if (!staff.username.trim()) {
