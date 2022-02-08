@@ -1,0 +1,81 @@
+.product-container{
+    display: flex;
+}
+.product-filter__card{
+    min-width: 250px;
+    margin: 0 20px 20px 20px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    border: 0.5px solid #a19b9b;
+}
+.product-filter__card h4{
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+.product-filter__card input{
+    width: 100%;
+    font-size: 15px;
+    padding: 6px 0;
+    border-bottom: 1px solid #666;
+}
+.product-filter__card select{
+    width: 100%;
+    border: none;
+    outline: none;
+    font-size: 15px;
+    padding: 6px 0;
+    border-bottom: 1px solid #666;
+}
+
+.product-data{
+    width: 100%;
+}
+
+.product-list{
+    width: 100%;
+    margin-top: 1px;
+    box-shadow: rgb(0 0 0 / 20%) 0px 2px 1px -1px, rgb(0 0 0 / 14%) 0px 1px 1px 0px, rgb(0 0 0 / 12%) 0px 1px 3px 0px;
+}
+.product-list .header, .item{
+    display: flex;
+    align-items: center;
+    padding: 18px 15px;
+}
+.product-list .header{
+    background-color: rgb(3, 169, 244);
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 10px 10px 0 0;
+}
+.product-list .header .id{
+    width: 15%;
+}
+.product-list .header .name{
+    width: 35%;
+}
+.product-list .header .origin__price, .price{
+    width: 13%;
+}
+.product-list .item{
+    border-bottom: 0.5px solid #888;
+}
+.product-list .item .id{
+    width: 15%;
+}
+.product-list .item .name{
+    width: 35%;
+}
+.product-list .item .origin__price, .price, .quantity{
+    width: 13%;
+}
+.product-list .item .btn-edit, .btn-delete{
+    font-size: 20px;
+    color: rgb(3, 169, 244);
+    background-color: transparent;
+}
+.product-list .item .btn-delete{
+    margin-left: 30px;
+    color: red;
+}
