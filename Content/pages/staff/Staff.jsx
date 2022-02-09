@@ -60,7 +60,23 @@ const Staff = (props) => {
   }, [textSearch]);
   return (
     <div className="div_staff">
-      {showFormAddStaff && <AddStaff />}
+      {showFormAddStaff && (
+        <div
+          style={{
+            position: "fixed",
+            left: 0,
+            top: 0,
+            zIndex: 1300,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            inset: 0,
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
+          }}
+        >
+          <AddStaff setShowFormAddStaff={setShowFormAddStaff} />
+        </div>
+      )}
       <div className="div_left">
         <div className="div_search">
           <div className="header_search">Tìm kiếm</div>

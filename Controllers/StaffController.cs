@@ -23,6 +23,7 @@ public class StaffController : Controller
 
     // Filter Staff By Position
     [HttpGet]
+    //Example:Get /data/staffs/filter?position=Nhân viên thu ngân
     [Route("/data/staffs/filter")]
     public ActionResult FilterStaffByPosition(string position)
     {

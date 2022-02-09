@@ -1,4 +1,4 @@
-export default function ValidateAddStaff(staff) {
+export default function validateAddStaff(staff) {
   let errors = {};
 
   if (!staff.username.trim()) {
@@ -33,4 +33,5 @@ export default function ValidateAddStaff(staff) {
   if (!staff.address) {
     errors.address = "Địa chỉ là bắt buộc";
   }
+  return errors;
 }

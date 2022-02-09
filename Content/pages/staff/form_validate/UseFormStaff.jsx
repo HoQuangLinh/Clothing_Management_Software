@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-const UseFormStaff = (callback, staff, setStaff, validate) => {
+const useFormStaff = (callback, staff, setStaff, validate) => {
   const [errors, setErrors] = useState({});
   useEffect(() => {
     console.log(errors);
@@ -29,4 +29,4 @@ const UseFormStaff = (callback, staff, setStaff, validate) => {
 
   return { handleChange, handleSubmit, errors };
 };
-export default UseFormStaff;
+export default useFormStaff;

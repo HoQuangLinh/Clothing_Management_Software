@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 
-import UseFormStaff from "./form_validate/UseFormStaff.jsx";
-import ValidateAddStaff from "./form_validate/ValidateAddStaff.jsx";
+import useFormStaff from "./form_validate/useFormStaff.jsx";
+import validateAddStaff from "./form_validate/validateAddStaff.jsx";
 import axios from "axios";
 
 const AddStaff = ({ setShowFormAddStaff }) => {
@@ -55,11 +55,11 @@ const AddStaff = ({ setShowFormAddStaff }) => {
         alert("Thêm nhân viên thất bại");
       });
   };
-  const { handleChange, handleSubmit, errors } = UseFormStaff(
+  const { handleChange, handleSubmit, errors } = useFormStaff(
     submitForm,
     staff,
     setStaff,
-    ValidateAddStaff
+    validateAddStaff
   );
   const [avatar, setAvatar] = useState();
   const onImageChange = (event) => {
