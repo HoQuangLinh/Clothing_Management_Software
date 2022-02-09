@@ -1,6 +1,10 @@
 .product-container{
     display: flex;
 }
+.product-filter{
+    display: flex;
+    flex-direction: column;
+}
 .product-filter__card{
     min-width: 250px;
     margin: 0 20px 20px 20px;
@@ -27,11 +31,19 @@
     padding: 6px 0;
     border-bottom: 1px solid #666;
 }
+.btn-qrcode{
+    margin: 0 auto;
+    font-weight: bold;
+    font-size: 16px;
+    background-color: rgb(3, 169, 244);
+    padding: 10px;
+    border-radius: 5px;
+    color: white;
+}
 
 .product-data{
     width: 100%;
 }
-
 .product-list{
     width: 100%;
     margin-top: 1px;
@@ -40,7 +52,7 @@
 .product-list .header, .item{
     display: flex;
     align-items: center;
-    padding: 18px 15px;
+    padding: 15px 15px;
 }
 .product-list .header{
     background-color: rgb(3, 169, 244);
@@ -49,33 +61,63 @@
     font-weight: bold;
     border-radius: 10px 10px 0 0;
 }
-.product-list .header .id{
-    width: 15%;
-}
-.product-list .header .name{
-    width: 35%;
-}
-.product-list .header .origin__price, .price{
-    width: 13%;
+.product-list-item{
+    height: 432px;
+    overflow-y: scroll;
 }
 .product-list .item{
     border-bottom: 0.5px solid #888;
 }
-.product-list .item .id{
+.product-list .header .id, .item .id{
     width: 15%;
+    min-width: 80px;
 }
-.product-list .item .name{
+.product-list .header .name{
     width: 35%;
+    min-width: 250px;
 }
-.product-list .item .origin__price, .price, .quantity{
+.product-list-item .item .name{
+    width: 37%;
+    min-width: 250px;
+}
+.product-list .header .origin__price, .price{
     width: 13%;
+    min-width: 100px;
 }
-.product-list .item .btn-edit, .btn-delete{
+.product-list-item .item .origin__price, .price, .quantity{
+    width: 13%;
+    text-align: center;
+    min-width: 100px;
+}
+.product-list-item .item .group-btn{
+    width: 11%;
+    display: flex;
+    justify-content: space-evenly;
+}
+.group-btn button{
     font-size: 20px;
     color: rgb(3, 169, 244);
     background-color: transparent;
 }
-.product-list .item .btn-delete{
-    margin-left: 30px;
+.group-btn .btn-delete{
     color: red;
+}
+.product-group-btn{
+    display: flex;
+    justify-content: end;
+    margin: 20px;
+}
+.product-group-btn button{
+    margin: 0 10px;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    font-size: 16px;
+    background-color: #36c590;
+    padding: 10px;
+    border-radius: 5px;
+    color: white;
+}
+.product-group-btn button i{
+    margin-right: 4px;
 }
