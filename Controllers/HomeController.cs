@@ -24,14 +24,22 @@ namespace Clothing_Management.Controllers
 			return View(_index);
         }
 		
-		[Route("products")]
+		[Route("/api/products")]
 		[ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
 		public async Task<ActionResult> Products()
 		{
 			_index.Products = await _context.Products.ToListAsync();
 			return new JsonResult(_index.Products);
 		}
-		
+
+		[Route("/api/categories")]
+		[ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
+		public async Task<ActionResult> Categories()
+		{
+			var categories = await _context.Categories.ToListAsync();
+			return new JsonResult(categories);
+		}
+
 		[Route("staffs")]
 		[ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
 		public async Task<ActionResult> Staffs()

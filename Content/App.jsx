@@ -26,9 +26,7 @@ export default class HomeComponent extends Component {
             <Route path="/home" component={Dashboard} />
             <Route
                 path="/products"
-                component={() => (
-                    <Product initialProducts={this.props.initialProducts} />
-                )}
+                component={Product}
             />
               <Route path="/staffs" component={Staff} />
               <Route

@@ -2,10 +2,12 @@
 
 const Product = (props) => {
     const [products, setProducts] = useState([]);
+    const [shirts, setShirts] = useState([]);
+    const [trousers, setTrousers] = useState([]);
 
     const loadProductsFromServer = () => {
         const xhr = new XMLHttpRequest();
-        xhr.open("get", "/products", true);
+        xhr.open("get", "/api/products", true);
         xhr.onload = () => {
             const data = JSON.parse(xhr.responseText);
             setProducts(data);
@@ -13,9 +15,29 @@ const Product = (props) => {
         xhr.send();
     };
 
+    const loadCategoriesFromServer = () => {
+        const xhr = new XMLHttpRequest();
+        xhr.open("get", "/api/categories", true);
+        xhr.onload = () => {
+            const data = JSON.parse(xhr.responseText);
+            data.forEach(item => {
+                let arr = item.name.split(' ')
+                 
+                if (arr[0] === "Áo") {
+                    setShirts(shirts => [...shirts, item])
+                }
+                if (arr[0] === "Quần") {
+                    setTrousers(trousers => [...trousers, item])
+                }
+            })
+        };
+        xhr.send();
+    };
+
     useEffect(() => {
+        loadCategoriesFromServer();
         loadProductsFromServer();
-        //console.log(products)
+        console.log(shirts)
     }, []);
 
     return (
@@ -29,12 +51,18 @@ const Product = (props) => {
                     <h4>Các loại áo</h4>
                     <select name="shirts" id="shirts">
                         <option value="all">Tất cả</option>
+                        {shirts && shirts.map((shirt, index) => (
+                            <option key={index} value={shirt.name}>{shirt.name}</option>
+                        ))}
                     </select>
                 </div>
                 <div className="product-filter__card">
-                    <h4>Các loại áo</h4>
+                    <h4>Các loại quần</h4>
                     <select name="trousers" id="trousers">
                         <option value="all">Tất cả</option>
+                        {trousers && trousers.map((trouser, index) => (
+                            <option key={index} value={trouser.name}>{trouser.name}</option>
+                        ))}
                     </select>
                 </div>
                 <button className="btn-qrcode">Xem mã vạch</button>
@@ -53,9 +81,9 @@ const Product = (props) => {
                             <div className="item">
                                 <div className="id">{product.id}</div>
                                 <div className="name">{product.name}</div>
-                                <div className="origin__price">{product.}</div>
-                                <div className="price">9,600</div>
-                                <div className="quantity">20</div>
+                                <div className="origin__price">{product.originPrice}</div>
+                                <div className="price">{product.costPrice}</div>
+                                <div className="quantity">{product.quantity}</div>
                                 <div className="group-btn">
                                     <button className="btn-edit">
                                         <i class="bx bx-edit"></i>
