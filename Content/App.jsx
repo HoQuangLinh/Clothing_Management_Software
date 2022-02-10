@@ -12,7 +12,7 @@ import {
 import Navbar from "./components/navbar/Navbar.jsx";
 import Sidebar from "./components/sidebar/Sidebar.jsx";
 import Product from "./pages/Product.jsx";
-import Staff from "./pages/Staff.jsx";
+import Staff from "./pages/staff/Staff.jsx";
 import AddProductModal from "../Content/components/modal/AddProductModal.jsx"
 
 export default class HomeComponent extends Component {
