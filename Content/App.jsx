@@ -43,8 +43,8 @@ export default class HomeComponent extends Component {
           <div className="layout__content-routes">
             <Switch>
               <Route exact path="/" render={() => <Redirect to="/home" />} />
-            <Route path="/home" component={Dashboard} />
-            <Route
+              <Route path="/home" component={Dashboard} />
+              <Route
                 path="/products"
                             component={() => (
                                 <Product showModal={this.showModal} />
