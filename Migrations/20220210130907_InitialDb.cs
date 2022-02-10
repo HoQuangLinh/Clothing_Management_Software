@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Clothing_Management.Migrations
 {
-    public partial class initialMigration : Migration
+    public partial class InitialDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -40,7 +40,8 @@ namespace Clothing_Management.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    Id = table.Column<string>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Fullname = table.Column<string>(nullable: true),
                     Username = table.Column<string>(nullable: true),
                     Password = table.Column<string>(nullable: true),
@@ -50,7 +51,7 @@ namespace Clothing_Management.Migrations
                     Gender = table.Column<string>(nullable: true),
                     ImageUrl = table.Column<string>(nullable: true),
                     Position = table.Column<string>(nullable: true),
-                    Birthday = table.Column<DateTime>(nullable: false)
+                    Birthday = table.Column<DateTime>(type: "Date", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -97,6 +98,7 @@ namespace Clothing_Management.Migrations
                     Status = table.Column<string>(nullable: true),
                     TotalReturnPrice = table.Column<float>(nullable: false),
                     UserId = table.Column<string>(nullable: true),
+                    UserId1 = table.Column<int>(nullable: true),
                     CustomerId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -109,8 +111,8 @@ namespace Clothing_Management.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Orders_Users_UserId",
-                        column: x => x.UserId,
+                        name: "FK_Orders_Users_UserId1",
+                        column: x => x.UserId1,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -153,7 +155,8 @@ namespace Clothing_Management.Migrations
                     QrCodeUrl = table.Column<string>(nullable: true),
                     DateReturn = table.Column<DateTime>(nullable: false),
                     OrderId = table.Column<string>(nullable: true),
-                    UserId = table.Column<string>(nullable: true)
+                    UserId = table.Column<string>(nullable: true),
+                    UserId1 = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -165,8 +168,8 @@ namespace Clothing_Management.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_ReturnOrders_Users_UserId",
-                        column: x => x.UserId,
+                        name: "FK_ReturnOrders_Users_UserId1",
+                        column: x => x.UserId1,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -208,9 +211,9 @@ namespace Clothing_Management.Migrations
                 column: "CustomerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Orders_UserId",
+                name: "IX_Orders_UserId1",
                 table: "Orders",
-                column: "UserId");
+                column: "UserId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_CategoriesId",
@@ -228,9 +231,23 @@ namespace Clothing_Management.Migrations
                 column: "OrderId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ReturnOrders_UserId",
+                name: "IX_ReturnOrders_UserId1",
                 table: "ReturnOrders",
-                column: "UserId");
+                column: "UserId1");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_Email",
+                table: "Users",
+                column: "Email",
+                unique: true,
+                filter: "[Email] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_Username",
+                table: "Users",
+                column: "Username",
+                unique: true,
+                filter: "[Username] IS NOT NULL");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
