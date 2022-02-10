@@ -1,6 +1,6 @@
 ﻿import React, { useEffect, useState } from "react";
 
-const Product = (props) => {
+const Product = ({showModal}) => {
     const [products, setProducts] = useState([]);
     const [shirts, setShirts] = useState([]);
     const [trousers, setTrousers] = useState([]);
@@ -97,7 +97,7 @@ const Product = (props) => {
                     </div>
                 </div>
                 <div className="product-group-btn">
-                    <button className="btn-new">
+                    <button className="btn-new" onClick={showModal}>
                         <i class="bx bx-plus"></i>
                         Thêm mới
                     </button>
