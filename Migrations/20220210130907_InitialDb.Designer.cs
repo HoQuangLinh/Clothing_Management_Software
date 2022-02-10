@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Clothing_Management.Migrations
 {
     [DbContext(typeof(ClothingManagementDBContext))]
-    [Migration("20220208100714_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20220210130907_InitialDb")]
+    partial class InitialDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -244,7 +244,7 @@ namespace Clothing_Management.Migrations
                         .HasColumnType("Date");
 
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Fullname")
                         .HasColumnType("nvarchar(max)");
@@ -265,9 +265,17 @@ namespace Clothing_Management.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Username")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Email")
+                        .IsUnique()
+                        .HasFilter("[Email] IS NOT NULL");
+
+                    b.HasIndex("Username")
+                        .IsUnique()
+                        .HasFilter("[Username] IS NOT NULL");
 
                     b.ToTable("Users");
                 });

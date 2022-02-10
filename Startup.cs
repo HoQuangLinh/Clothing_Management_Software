@@ -9,6 +9,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using React.AspNet;
 using Clothing_Management.Data;
+using Clothing_Management.Helpers;
+using System;
+using Newtonsoft.Json;
 namespace React.Sample.Webpack.CoreMvc
 {
     public class Startup
@@ -34,6 +37,9 @@ namespace React.Sample.Webpack.CoreMvc
             services.AddDbContext<ClothingManagementDBContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("ClothingManagementConnection")));
 
+            services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
+            services.AddSingleton(Configuration.GetSection("CloudinarySettings").Get<CloudinarySettings>());
+            services.AddScoped<CloudinaryConfig>();
 
 
             // Build the intermediate service provider then return it

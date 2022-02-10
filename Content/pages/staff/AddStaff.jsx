@@ -1,59 +1,43 @@
 import React, { useState, useRef } from "react";
 
-import useFormStaff from "./form_validate/useFormStaff.jsx";
-import validateAddStaff from "./form_validate/validateAddStaff.jsx";
+import useFormStaff from "./form_validate/UseFormStaff.jsx";
+import validateAddStaff from "./form_validate/ValidateAddStaff.jsx";
 import axios from "axios";
 
 const AddStaff = ({ setShowFormAddStaff }) => {
   const inputAvatarRef = useRef(null);
 
   const [staff, setStaff] = useState({
-    username: "",
-    password: "",
-    confirmPassword: "",
-    phone: "",
-    address: "",
+    username: "admin",
+    password: "111111",
+    confirmPassword: "111111",
+    phone: "111111",
+    address: "1111",
     sex: "",
-    email: "",
-    fullname: "",
+    email: "hoquanglinh2710@gmail.com",
+    fullname: "aaaaa",
     gender: "Nam",
     position: "Nhân viên thu ngân",
   });
 
   //Call API
   const submitForm = () => {
+    console.log(avatar);
+    console.log(staff);
     var formStaff = new FormData();
     formStaff.append("username", staff.username);
     formStaff.append("password", staff.password);
     formStaff.append("fullname", staff.fullname);
     formStaff.append("address", staff.address);
-    formStaff.append("birthday", staff.birthday);
+
     formStaff.append("gender", staff.gender);
     formStaff.append("position", staff.position);
     formStaff.append("email", staff.email);
     formStaff.append("phone", staff.phone);
     formStaff.append("image", avatar);
-
-    //post to API
-    axios
-      .post(
-        "https://clothesapp123.herokuapp.com/api/users/register",
-        formStaff,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            "Access-Control-Allow-Origin": "*",
-          },
-        },
-        { timeout: 1000 }
-      )
-      .then((res) => {
-        alert("Thêm nhân viên thành công");
-        setShowFormAddStaff(false);
-      })
-      .catch((err) => {
-        alert("Thêm nhân viên thất bại");
-      });
+    axios.post("/data/addStaff", formStaff).then((res) => {
+      console.log(res.data);
+    });
   };
   const { handleChange, handleSubmit, errors } = useFormStaff(
     submitForm,
@@ -188,7 +172,7 @@ const AddStaff = ({ setShowFormAddStaff }) => {
             <input
               name="email"
               onChange={handleChange}
-              value={staff.value}
+              value={staff.email}
               type="text"
               className={errors.email ? "error" : ""}
             />

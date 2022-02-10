@@ -15,6 +15,13 @@ namespace Clothing_Management.Models
             : base(options)
         { }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>().HasIndex(u => u.Username).IsUnique();
+            modelBuilder.Entity<User>().HasIndex(u => u.Email).IsUnique();
+
+        }
+
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Categories> Categories { get; set; }
         public virtual DbSet<User> Users { get; set; }
