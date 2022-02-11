@@ -37,7 +37,6 @@ const Product = ({showModal}) => {
     useEffect(() => {
         loadCategoriesFromServer();
         loadProductsFromServer();
-        console.log(shirts)
     }, []);
 
     return (

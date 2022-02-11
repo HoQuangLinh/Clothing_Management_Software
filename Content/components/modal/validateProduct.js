@@ -17,9 +17,6 @@ export default function validateProduct(product) {
   if (product.discount < 0) {
     errors.countInStock = "Khuyến mãi phải lớn hơn 0";
   }
-  if (!product.size?.trim()) {
-    errors.size = "Size 3XL, XXL, XL, L, M or S";
-  }
   if (product.quantity <= 0) {
     errors.quantity = "Số lượng phải lớn hơn 0";
   }

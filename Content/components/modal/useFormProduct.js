@@ -2,13 +2,15 @@ import { useState, useEffect } from "react";
 
 const useFormProduct = (callback, product, setProduct, validate) => {
   const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmiting] = useState(false);
+
   useEffect(() => {
     //Validate Success
     if (isSubmitting && Object.keys(errors).length === 0) {
       callback();
     }
   }, [errors]);
-  const [isSubmitting, setIsSubmiting] = useState(false);
+
   const handleChange = (e) => {
     var { name, value } = e.target;
 
@@ -16,7 +18,8 @@ const useFormProduct = (callback, product, setProduct, validate) => {
       name === "costPrice" ||
       name === "salePrice" ||
       name === "discount" ||
-      name === "originPrice"
+      name === "originPrice" ||
+      name === "quantity"
     ) {
       value = Math.floor(value);
     }

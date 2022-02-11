@@ -6,6 +6,7 @@ const AddProductModal = ({ handleClose, show }) => {
     const inputProductImage = useRef(null);
     const [productId, setProductId] = useState();
     const [categoryId, setCategoryId] = useState();
+    const [size, setSize] = useState("3XL");
     const [categories, setCategories] = useState([])
     const [productImage, setProductImage] = useState();
     const [qrImage, setQrImage] = useState(
@@ -13,12 +14,10 @@ const AddProductModal = ({ handleClose, show }) => {
     );
     const [product, setProduct] = useState({
         name: "",
-        category: "",
         costPrice: 0,
         salePrice: 0,
         originPrice: 0,
         discount: 0,
-        size: "",
         quantity: 0,
     });
 
@@ -29,7 +28,29 @@ const AddProductModal = ({ handleClose, show }) => {
     };
 
     const submitForm = () => {
+        //console.log(product)
+        //console.log(categoryId)
+        //console.log(size)
+        var data = new FormData();
+        data.append("categoryId", categoryId)
+        data.append("name", product.name)
+        data.append("costPrice", product.costPrice)
+        data.append("discount", product.discount)
+        data.append("salePrice", product.salePrice)
+        data.append("originPrice", product.originPrice)
+        data.append("size", product.size)
+        data.append("quantity", product.quantity)
+        data.append("image", productImage)
 
+        //post data
+        const xhr = new XMLHttpRequest();
+        xhr.open("post", "/api/product", true);
+        xhr.onload = () => {
+            const data = JSON.parse(xhr.responseText);
+            setCategories(data);
+            setCategoryId(data[0].id)
+        };
+        xhr.send();
     }
 
     const { handleChange, handleSubmit, errors } = useFormProduct(
@@ -45,6 +66,7 @@ const AddProductModal = ({ handleClose, show }) => {
         xhr.onload = () => {
             const data = JSON.parse(xhr.responseText);
             setCategories(data);
+            setCategoryId(data[0].id)
         };
         xhr.send();
     };
@@ -68,7 +90,7 @@ const AddProductModal = ({ handleClose, show }) => {
                         </div>
                         <div className="add-product__field">
                             <span>Giá vốn (vnđ)</span>
-                            <input type="number" pattern="[0-9]*" name="costPrice" 
+                            <input type="text" pattern="[0-9]*" name="costPrice" 
                             value={product.costPrice} onChange={handleChange}/>
                             <p className="add-product__field-error">{errors.costPrice}</p>
                         </div>
@@ -81,9 +103,9 @@ const AddProductModal = ({ handleClose, show }) => {
                                 onChange={(e) => {setCategoryId(e.target.value)}}
                                 className="add_product_field-select"
                             >
-                                {categories.map((category) => {
+                                {categories.map((category, index) => {
                                     return (
-                                        <option key={category.id} value={category.id}>
+                                        <option key={index} value={category.id}>
                                             {category.name}
                                         </option>
                                     );
@@ -106,7 +128,7 @@ const AddProductModal = ({ handleClose, show }) => {
                         </div>
                         <div className="add-product__field">
                             <span>Giá bán (vnđ)</span>
-                            <input type="number" pattern="[0-9]*" name="salePrice" 
+                            <input type="text" pattern="[0-9]*" name="salePrice" 
                             value={product.salePrice} onChange={handleChange}/>
                             <p className="add-product__field-error">{errors.salePrice}</p>
                         </div>
@@ -114,12 +136,22 @@ const AddProductModal = ({ handleClose, show }) => {
                     <div className="add-product__row">
                         <div className="add-product__field">
                             <span>Size</span>
-                            <input type="text" name="size" value={product.size} onChange={handleChange}/>
-                            <p className="add-product__field-error">{errors.size}</p>
+                            <select
+                                name="size"
+                                onChange={(e) => {setSize(e.target.value)}}
+                                className="add_product_field-select"
+                            >
+                                <option value="3XL">3XL</option>
+                                <option value="XXL">XXL</option>
+                                <option value="XL">XL</option>
+                                <option value="L">L</option>
+                                <option value="M">M</option>
+                                <option value="S">S</option>
+                            </select>
                         </div>
                         <div className="add-product__field">
                             <span>Giá nhập hàng (vnđ)</span>
-                            <input type="number" pattern="[0-9]*" name="originPrice" 
+                            <input type="text" pattern="[0-9]*" name="originPrice" 
                             value={product.originPrice} onChange={handleChange}/>
                             <p className="add-product__field-error">{errors.originPrice}</p>
                         </div>
@@ -127,7 +159,8 @@ const AddProductModal = ({ handleClose, show }) => {
                     <div className="add-product__row">
                         <div className="add-product__field">
                             <span>Số lượng</span>
-                            <input type="text" name="quantity" value={product.quantity} onChange={handleChange}/>
+                            <input type="text" pattern="[0-9]*" name="quantity" 
+                            value={product.quantity} onChange={handleChange}/>
                             <p className="add-product__field-error">{errors.quantity}</p>
                         </div>
                     </div>
