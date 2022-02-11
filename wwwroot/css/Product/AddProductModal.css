@@ -29,8 +29,8 @@
 }
 
 .modal__inner {
-    width: 420px;
-    top: 30%;
+    width: 60%;
+    top: 5%;
     position: relative;
     margin: auto;
     background: white;
@@ -51,16 +51,67 @@
         cursor: pointer;
     }
 
+/* Body */
 .modal__body {
     padding: 15px;
+}
+.add-product__row{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin: 0px 10px;
+}
+.add-product__field{
+    width: 50%;
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin-bottom: 28px;
+}
+.add-product__field span{
+    width: 150px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #666;
+}
+.add-product__field input{
+    border: 1px solid #666;
+    width: 60%;
+    padding: 8px;
+    border-radius: 5px;
+}
+.add-product__field select{
+    width: 60%;
+    padding: 8px 5px;
+    border-radius: 5px;
+    border: 1px solid #666;
+}
+.add-product__field img{
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    object-position: center;
+    cursor: pointer;
+}
+.add-product__field p{
+    position: absolute;
+    left: 34%;
+    bottom: -20px;
+    font-size: 13px;
+    color: red;
 }
 
 .modal__footer {
     padding: 15px;
     text-align: right;
+    display: flex;
+    justify-content: right;
+    
 }
 
     .modal__footer button {
+        font-size: 14px;
+        margin: 0px 20px;
         padding: 10px 20px;
         color: white;
         background: var(--pimary-color);
@@ -85,7 +136,7 @@
     }
 
     to {
-        top: 30%;
+        top: 5%;
         opacity: 1;
     }
 }
