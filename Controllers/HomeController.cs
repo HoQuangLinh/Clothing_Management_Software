@@ -40,6 +40,20 @@ namespace Clothing_Management.Controllers
 			return new JsonResult(categories);
 		}
 
+        [Route("/api/products")]
+        [HttpPost]
+        public IActionResult Products(Product p)
+        {
+            Product product = p;
+            
+            product.Id = "aaaaa0";
+
+            _context.Products.Add(product);
+            _context.SaveChanges();
+
+            return Ok("Thanh cong");
+        }
+
         public class IndexViewModel
         {
             public IReadOnlyList<Product> Products { get; set; }

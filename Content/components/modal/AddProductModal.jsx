@@ -1,4 +1,5 @@
 ﻿import React, { useState, useEffect, useRef } from 'react';
+import { Alert } from 'reactstrap';
 import useFormProduct from './useFormProduct'
 import validateProduct from './validateProduct'
 
@@ -31,26 +32,34 @@ const AddProductModal = ({ handleClose, show }) => {
         //console.log(product)
         //console.log(categoryId)
         //console.log(size)
-        var data = new FormData();
-        data.append("categoryId", categoryId)
-        data.append("name", product.name)
-        data.append("costPrice", product.costPrice)
-        data.append("discount", product.discount)
-        data.append("salePrice", product.salePrice)
-        data.append("originPrice", product.originPrice)
-        data.append("size", product.size)
-        data.append("quantity", product.quantity)
-        data.append("image", productImage)
+        let product = {
+            Id: "",
+            Name: product.name,
+            OriginPrice: product.originPrice,
+            CostPrice: product.costPrice,
+            Discount: product.discount,
+            SalePrice: product.salePrice,
+            ImageDisplay: productImage,
+            QrCodeUrl: "",
+            Size: product.size,
+            Quantity: product.quantity,
+            CategoriesId: categoryId,
+        }
 
         //post data
-        const xhr = new XMLHttpRequest();
-        xhr.open("post", "/api/product", true);
-        xhr.onload = () => {
-            const data = JSON.parse(xhr.responseText);
-            setCategories(data);
-            setCategoryId(data[0].id)
-        };
-        xhr.send();
+        fetch('/api/products', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(product)
+          })
+        .then(response => response.json()).then(res => {
+            if (res) {
+                Alert("Thanh cong")
+            }
+        })
+        .catch(error => console.error('Unable to add item.', error));
     }
 
     const { handleChange, handleSubmit, errors } = useFormProduct(
