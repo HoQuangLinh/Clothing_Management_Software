@@ -4,6 +4,7 @@
   padding-bottom: 30px;
 }
 .add_staff-heading {
+  user-select: none;
   position: relative;
   color: white;
   height: 90px;
@@ -45,12 +46,14 @@
   top: 0;
   margin: 15px;
   cursor: pointer;
+  user-select: none;
 }
 
 .add_staff_img {
   display: flex;
   flex-direction: column;
   margin-left: 50px;
+  user-select: none;
 }
 
 .btn-pickImage {
@@ -58,7 +61,7 @@
   height: 30px;
   border: 1px solid #a19b9b;
   border-radius: 5px;
-
+  user-select: none;
   margin-top: 20px;
 }
 .add_staff-avatar {
@@ -81,6 +84,7 @@
   align-items: center;
   margin-bottom: 30px;
   margin-left: 40px;
+  user-select: none;
 }
 .add_staff-form-row > input {
   width: 65%;
@@ -123,6 +127,7 @@
   margin-right: 50px;
 }
 .add_staff-btn-save {
+  user-select: none;
   width: 100px;
   height: 40px;
   margin-right: 20px;
@@ -131,6 +136,7 @@
   background-color: #4cb050;
 }
 .add_staff-btn-cancel {
+  user-select: none;
   width: 100px;
   height: 40px;
   border-radius: 5px;

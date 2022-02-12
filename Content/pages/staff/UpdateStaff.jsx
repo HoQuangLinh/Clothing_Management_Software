@@ -9,7 +9,6 @@ const UpdateStaff = ({ staffId, setShowFormUpdateStaff }) => {
   const inputAvatarRef = useRef(null);
 
   useEffect(() => {
-    console.log(`Staff Id is ${staffId}`);
     axios
       .get(`/data/staffs/${staffId}`)
       .then((res) => {
@@ -36,25 +35,21 @@ const UpdateStaff = ({ staffId, setShowFormUpdateStaff }) => {
 
     //post to API
     axios
-      .put(
-        `https://clothesapp123.herokuapp.com/api/users/updateUser/${staff._id}`,
-        formStaff,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            "Access-Control-Allow-Origin": "*",
-          },
+      .put(`/data/staffs/${staffId}`, formStaff, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          "Access-Control-Allow-Origin": "*",
         },
-        { timeout: 1000 }
-      )
+      })
       .then((res) => {
         alert("Cập nhật nhân viên thành công");
         setShowFormUpdateStaff(false);
       })
       .catch((err) => {
         console.log(err.response);
-        alert("Cập nhật nhân viên thất bại");
-        //setShowFormUpdateStaff(false);
+        alert(
+          "Email hoặc số điện thoại bạn nhập đã bị trùng, vui lòng thử lại sau"
+        );
       });
   };
   const { handleChange, handleSubmit, errors } = useFormStaff(
@@ -111,7 +106,7 @@ const UpdateStaff = ({ staffId, setShowFormUpdateStaff }) => {
         <div className="update_staff-form">
           <div className="update_staff-form-row">
             <span>Mã nhân viên</span>
-            <input name="username" value={staff.id} type="text" />
+            <input readOnly name="username" value={staff.id} type="text" />
             <p className="update_staff-form-error">{errors.username}</p>
           </div>
 
@@ -125,6 +120,16 @@ const UpdateStaff = ({ staffId, setShowFormUpdateStaff }) => {
               type="text"
             />
             <p className="update_staff-form-error">{errors.fullname}</p>
+          </div>
+          <div className="update_staff-form-row">
+            <span>Tên tài khoản</span>
+            <input
+              readOnly
+              name="username"
+              value={staff.username}
+              type="text"
+            />
+            <p className="update_staff-form-error">{errors.username}</p>
           </div>
           <div className="update_staff-form-row">
             <span>Giới tính</span>

@@ -41,7 +41,7 @@ const AddStaff = ({ setShowFormAddStaff }) => {
         setShowFormAddStaff(false);
       })
       .catch((error) => {
-        alert("Tên tài khoản hoặc email đã có người sử dụng");
+        alert("Tên tài khoản hoặc email, số điện thoại đã có người sử dụng");
       });
   };
   const { handleChange, handleSubmit, errors } = useFormStaff(

@@ -8,8 +8,8 @@ export default function validateUpdateStaff(staff) {
   }
   if (!staff.fullname) {
     errors.fullname = "Họ tên là bắt buộc";
-  } else if (!/^[A-Za-z]+/.test(staff.username.trim())) {
-    errors.username = "Nhập vào tên hợp lệ";
+  } else if (!/^[A-Za-z]+/.test(staff.fullname.trim())) {
+    errors.fullname = "Nhập vào tên hợp lệ";
   }
   if (!staff.phone) {
     errors.phone = "Số điện thoại là bắt buộc";

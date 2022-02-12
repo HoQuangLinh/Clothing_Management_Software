@@ -1,3 +1,4 @@
+using System.Net;
 using System.Globalization;
 using Microsoft.AspNetCore.Mvc;
 using Clothing_Management.Models;
@@ -38,7 +39,7 @@ public class StaffController : Controller
     public ActionResult GetStaffById(int id)
     {
 
-        var user = _context.Users.Select(user => new { user.Id, user.Gender, user.Email, user.Phone, user.Fullname, user.Position, user.Address, user.ImageUrl }).Where(user => user.Position != "Chủ cửa hàng" && user.Id == id).FirstOrDefault();
+        var user = _context.Users.Select(user => new { user.Id, user.Username, user.Gender, user.Email, user.Phone, user.Fullname, user.Position, user.Address, user.ImageUrl }).Where(user => user.Position != "Chủ cửa hàng" && user.Id == id).FirstOrDefault();
 
         if (user == null)
         {
@@ -100,7 +101,6 @@ public class StaffController : Controller
             Password = staffDto.Password,
             Fullname = staffDto.Fullname,
             Address = staffDto.Address
-
         };
 
         try
@@ -113,8 +113,88 @@ public class StaffController : Controller
         catch (Exception ex)
         {
 
-            return StatusCode(500);
+            return StatusCode(500, new
+            {
+                Error = "Duplicate some properties in table"
+            });
         }
 
     }
+
+    //Edit Staff By Id
+    [Route("/data/staffs/{id}")]
+    [HttpPut]
+    public ActionResult UpdateStaffById(int id, StaffDto staffDto)
+    {
+        var staff = _context.Users.Where(user => user.Id == id).FirstOrDefault();
+        if (staff == null)
+        {
+            return NotFound(new
+            {
+                Error = $"Cannot fimd staff with Id is {id}"
+            });
+        }
+
+        if (staffDto.Image != null)
+        {
+            var image = staffDto.Image;
+            var uploadResult = new ImageUploadResult();
+
+            //Upload file to Cloudinary Server Using File ReadStream
+            using (var stream = image.OpenReadStream())
+            {
+
+                var uploadParams = new ImageUploadParams()
+                {
+                    File = new FileDescription(image.Name, stream),
+
+                };
+
+                uploadResult = _cloudinaryConfig.Cloudinary.Upload(uploadParams);
+
+                staffDto.ImageUrl = uploadResult.Url?.ToString();
+                staff.ImageUrl = staffDto.ImageUrl ?? staff.ImageUrl;
+            }
+        }
+        if (!string.IsNullOrEmpty(staffDto.Gender) && staff.Gender != staffDto.Gender)
+        {
+            staff.Gender = staffDto.Gender;
+
+        }
+        if (!string.IsNullOrEmpty(staffDto.Email) && staff.Email != staffDto.Email)
+        {
+            staff.Email = staffDto.Email;
+        }
+        if (!string.IsNullOrEmpty(staffDto.Phone) && staff.Phone != staffDto.Phone)
+        {
+            staff.Phone = staffDto.Phone;
+        }
+        if (!string.IsNullOrEmpty(staffDto.Fullname) && staff.Fullname != staffDto.Fullname)
+        {
+            staff.Fullname = staffDto.Fullname;
+        }
+        if (!string.IsNullOrEmpty(staffDto.Position) && staff.Position != staffDto.Position)
+        {
+            staff.Position = staffDto.Position;
+        }
+        if (!string.IsNullOrEmpty(staffDto.Address) && staff.Address != staffDto.Address)
+        {
+            staff.Address = staffDto.Address;
+        }
+        try
+        {
+            _context.SaveChanges();
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new
+            {
+                Error = "Duplicate some properties in table"
+            });
+        }
+
+
+        return Ok();
+    }
+
 }

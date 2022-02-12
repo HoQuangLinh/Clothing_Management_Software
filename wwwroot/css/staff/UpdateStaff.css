@@ -74,6 +74,7 @@
 }
 
 .update_staff-form-row {
+  user-select: none;
   position: relative;
   width: 320px;
   display: flex;
@@ -84,7 +85,7 @@
 }
 .update_staff-form-row > input {
   width: 65%;
-
+  user-select: none;
   padding: 10px;
   border: 1px solid #4e5052;
   border-radius: 5px;
@@ -123,6 +124,7 @@
   margin-right: 50px;
 }
 .update_staff-btn-save {
+  user-select: none;
   width: 100px;
   height: 40px;
   margin-right: 20px;
@@ -131,6 +133,7 @@
   background-color: #4cb050;
 }
 .update_staff-btn-cancel {
+  user-select: none;
   width: 100px;
   height: 40px;
   border-radius: 5px;
