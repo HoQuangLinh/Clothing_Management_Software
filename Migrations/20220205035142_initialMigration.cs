@@ -29,7 +29,8 @@ namespace Clothing_Management.Migrations
                     Address = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: true),
                     Gender = table.Column<string>(nullable: true),
-                    Point = table.Column<float>(nullable: false)
+                    Point = table.Column<float>(nullable: false),
+                    Total = table.Column<float>(nullable: false)
                 },
                 constraints: table =>
                 {

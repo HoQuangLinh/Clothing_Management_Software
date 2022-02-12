@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using React.AspNet;
+// using Clothing_Management.Data;
 
 namespace React.Sample.Webpack.CoreMvc
 {
@@ -68,6 +69,7 @@ namespace React.Sample.Webpack.CoreMvc
 				endpoints.MapControllerRoute("comments-root", "comments", new { controller = "Home", action = "Index" });
 				endpoints.MapControllerRoute("comments", "comments/page-{page}", new { controller = "Home", action = "Comments" });
 			});
+			// DataInitializer.Seed(app);
 		}
 	}
 }
