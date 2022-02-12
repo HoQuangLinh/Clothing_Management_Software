@@ -94,6 +94,50 @@ namespace Clothing_Management.Data
                     context.Users.AddRange(users);
                     context.SaveChanges();
                 }
+                if (!context.Products.Any())
+                {
+                    List<Product> products = new List<Product>()
+                    {
+                        new Product()
+                        {
+                            Name = "Áo ca ki",
+                            OriginPrice = 20000,
+                            CostPrice = 21000,
+                            Discount = 0,
+                            SalePrice = 21000,
+                            ImageDisplay = "",
+                            QrCodeUrl = "",
+                            Size = "XL",
+                            Quantity = 20,
+                        },
+                        new Product()
+                        {
+                            Name = "Áo sơ mi xanh",
+                            OriginPrice = 50000,
+                            CostPrice = 51000,
+                            Discount = 0,
+                            SalePrice = 51000,
+                            ImageDisplay = "",
+                            QrCodeUrl = "",
+                            Size = "L",
+                            Quantity = 50,
+                        },
+                        new Product()
+                        {
+                            Name = "Quần jean 2021",
+                            OriginPrice = 30000,
+                            CostPrice = 31000,
+                            Discount = 0,
+                            SalePrice = 31000,
+                            ImageDisplay = "",
+                            QrCodeUrl = "",
+                            Size = "L",
+                            Quantity = 30,
+                        }
+                    };
+                    context.Products.AddRange(products);
+                    context.SaveChanges();
+                }
             }
         }
     }
