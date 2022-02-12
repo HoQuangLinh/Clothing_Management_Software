@@ -29,9 +29,27 @@ public class StaffController : Controller
     [Route("/data/staffs")]
     public ActionResult GetAllStaff()
     {
-
-        var staffs = _context.Users.Where(user => user.Position != "Chủ cửa hàng");
+        var staffs = _context.Users.Where(user => user.Position != "Chủ cửa hàng").Select(user => new { user.Id, user.Fullname, user.Position, user.Phone, user.Gender });
         return new JsonResult(staffs);
+    }
+
+    //Get Staff By Id
+    [Route("/data/staffs/{id}")]
+    public ActionResult GetStaffById(int id)
+    {
+
+        var user = _context.Users.Select(user => new { user.Id, user.Gender, user.Email, user.Phone, user.Fullname, user.Position, user.Address, user.ImageUrl }).Where(user => user.Position != "Chủ cửa hàng" && user.Id == id).FirstOrDefault();
+
+        if (user == null)
+        {
+            return NotFound(
+                new
+                {
+                    Error = $"Cannot find staff with id is {id}"
+                }
+           );
+        }
+        return Ok(user);
     }
 
     // Filter Staff By Position

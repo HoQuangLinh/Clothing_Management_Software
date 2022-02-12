@@ -1,14 +1,27 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 
 import useFormStaff from "./form_validate/useFormStaff.jsx";
 import validateUpdateStaff from "./form_validate/validateUpdateStaff.jsx";
 import axios from "axios";
 
-const UpdateStaff = ({ staff, setStaff, setShowFormUpdateStaff }) => {
+const UpdateStaff = ({ staffId, setShowFormUpdateStaff }) => {
+  const [staff, setStaff] = useState({});
   const inputAvatarRef = useRef(null);
-  console.log(staff.id);
+
+  useEffect(() => {
+    console.log(`Staff Id is ${staffId}`);
+    axios
+      .get(`/data/staffs/${staffId}`)
+      .then((res) => {
+        setStaff(res.data);
+      })
+      .catch((err) => {
+        alert("Lỗi truy vấn, vui lòng thử lại sau");
+      });
+  }, [staffId]);
   //Call API
   const submitForm = () => {
+    console.log(staff);
     var formStaff = new FormData();
     formStaff.append("username", staff.username);
 
@@ -44,8 +57,12 @@ const UpdateStaff = ({ staff, setStaff, setShowFormUpdateStaff }) => {
         //setShowFormUpdateStaff(false);
       });
   };
-  const { handleChange, handleChangeBirthday, handleSubmit, errors } =
-    useFormStaff(submitForm, staff, setStaff, validateUpdateStaff);
+  const { handleChange, handleSubmit, errors } = useFormStaff(
+    submitForm,
+    staff,
+    setStaff,
+    validateUpdateStaff
+  );
   const [avatar, setAvatar] = useState();
   const onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
@@ -94,7 +111,7 @@ const UpdateStaff = ({ staff, setStaff, setShowFormUpdateStaff }) => {
         <div className="update_staff-form">
           <div className="update_staff-form-row">
             <span>Mã nhân viên</span>
-            <input name="username" value={staff._id} type="text" />
+            <input name="username" value={staff.id} type="text" />
             <p className="update_staff-form-error">{errors.username}</p>
           </div>
 

@@ -69,8 +69,7 @@ const Staff = (props) => {
       {showFormUpdateStaff && (
         <div className="staff-show-modal">
           <UpdateStaff
-            staff={selectedStaff}
-            setStaff={selectedStaff}
+            staffId={selectedStaff.id}
             setShowFormUpdateStaff={setShowFormUpdateStaff}
           />
         </div>
