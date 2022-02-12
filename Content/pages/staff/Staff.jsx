@@ -67,11 +67,13 @@ const Staff = (props) => {
         </div>
       )}
       {showFormUpdateStaff && (
-        <UpdateStaff
-          staff={selectedStaff}
-          setStaff={selectedStaff}
-          setShowFormUpdateStaff={setShowFormUpdateStaff}
-        />
+        <div className="staff-show-modal">
+          <UpdateStaff
+            staff={selectedStaff}
+            setStaff={selectedStaff}
+            setShowFormUpdateStaff={setShowFormUpdateStaff}
+          />
+        </div>
       )}
       <div className="staff-container-left">
         <div className="staff-container-search">
