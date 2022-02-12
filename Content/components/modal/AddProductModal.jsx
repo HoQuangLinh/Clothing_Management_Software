@@ -1,5 +1,5 @@
 ﻿import React, { useState, useEffect, useRef } from 'react';
-import { Alert } from 'reactstrap';
+import axios from "axios";
 import useFormProduct from './useFormProduct'
 import validateProduct from './validateProduct'
 
@@ -29,37 +29,25 @@ const AddProductModal = ({ handleClose, show }) => {
     };
 
     const submitForm = () => {
-        //console.log(product)
-        //console.log(categoryId)
-        //console.log(size)
-        let product = {
-            Id: "",
-            Name: product.name,
-            OriginPrice: product.originPrice,
-            CostPrice: product.costPrice,
-            Discount: product.discount,
-            SalePrice: product.salePrice,
-            ImageDisplay: productImage,
-            QrCodeUrl: "",
-            Size: product.size,
-            Quantity: product.quantity,
-            CategoriesId: categoryId,
-        }
+        console.log(product)
+        console.log(categoryId)
+        console.log(size)
+        var data = new FormData()
+        data.append("Name", product.name)
+        data.append("OriginPrice", product.originPrice)
+        data.append("CostPrice", product.costPrice)
+        data.append("Discount", product.discount)
+        data.append("SalePrice", product.salePrice)
+        data.append("Image", productImage ? productImage : "")
+        data.append("Size", product.size)
+        data.append("Quantity", product.quantity)
+        data.append("CategoriesId", categoryId)
 
         //post data
-        fetch('/api/products', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(product)
-          })
-        .then(response => response.json()).then(res => {
-            if (res) {
-                Alert("Thanh cong")
-            }
-        })
-        .catch(error => console.error('Unable to add item.', error));
+        axios.post("/api/products/new", data).then((res) => {
+            console.log(res.data);
+            handleClose();
+        });
     }
 
     const { handleChange, handleSubmit, errors } = useFormProduct(

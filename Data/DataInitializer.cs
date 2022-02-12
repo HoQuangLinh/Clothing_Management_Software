@@ -94,6 +94,38 @@ namespace Clothing_Management.Data
                     context.Users.AddRange(users);
                     context.SaveChanges();
                 }
+                if (!context.Categories.Any())
+                {
+                    List<Categories> categories = new List<Categories>()
+                    {
+                        new Categories()
+                        {
+                            Name = "Áo thun", //1
+                        },
+                        new Categories()
+                        {
+                            Name = "Áo khoác", //2
+                        },
+                        new Categories()
+                        {
+                            Name = "Áo sơ mi", //3
+                        },
+                        new Categories()
+                        {
+                            Name = "Quần jean", //4
+                        },
+                        new Categories()
+                        {
+                            Name = "Quần tây", //5
+                        },
+                        new Categories()
+                        {
+                            Name = "Quần đùi", //6
+                        }
+                    };
+                    context.Categories.AddRange(categories);
+                    context.SaveChanges();
+                }  
                 if (!context.Products.Any())
                 {
                     List<Product> products = new List<Product>()
@@ -109,6 +141,7 @@ namespace Clothing_Management.Data
                             QrCodeUrl = "",
                             Size = "XL",
                             Quantity = 20,
+                            CategoriesId = 1,
                         },
                         new Product()
                         {
@@ -121,6 +154,7 @@ namespace Clothing_Management.Data
                             QrCodeUrl = "",
                             Size = "L",
                             Quantity = 50,
+                            CategoriesId = 3,
                         },
                         new Product()
                         {
@@ -133,6 +167,7 @@ namespace Clothing_Management.Data
                             QrCodeUrl = "",
                             Size = "L",
                             Quantity = 30,
+                            CategoriesId = 4,
                         }
                     };
                     context.Products.AddRange(products);
