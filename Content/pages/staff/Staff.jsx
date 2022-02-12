@@ -22,7 +22,7 @@ const Staff = (props) => {
       .catch((err) => {
         console.log(err.response);
       });
-  }, []);
+  }, [showFormAddStaff]);
 
   //Filter Staffs By Position
   useEffect(() => {

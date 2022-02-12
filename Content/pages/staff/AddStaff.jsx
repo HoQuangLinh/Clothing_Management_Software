@@ -22,22 +22,25 @@ const AddStaff = ({ setShowFormAddStaff }) => {
 
   //Call API
   const submitForm = () => {
-    console.log(avatar);
-    console.log(staff);
     var formStaff = new FormData();
     formStaff.append("username", staff.username);
     formStaff.append("password", staff.password);
     formStaff.append("fullname", staff.fullname);
     formStaff.append("address", staff.address);
-
     formStaff.append("gender", staff.gender);
     formStaff.append("position", staff.position);
     formStaff.append("email", staff.email);
     formStaff.append("phone", staff.phone);
     formStaff.append("image", avatar);
-    axios.post("/data/addStaff", formStaff).then((res) => {
-      console.log(res.data);
-    });
+    axios
+      .post("/data/addStaff", formStaff)
+      .then((res) => {
+        alert("Thêm nhân viên thành công");
+        setShowFormAddStaff(false);
+      })
+      .catch((error) => {
+        alert("Tên tài khoản hoặc email đã có người sử dụng");
+      });
   };
   const { handleChange, handleSubmit, errors } = useFormStaff(
     submitForm,

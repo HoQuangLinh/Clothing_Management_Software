@@ -9,12 +9,13 @@ using CloudinaryDotNet.Actions;
 using Microsoft.Extensions.Options;
 using Clothing_Management.Helpers;
 using Clothing_Management.Dtos;
+using Microsoft.EntityFrameworkCore;
 
 public class StaffController : Controller
 {
     private readonly ClothingManagementDBContext _context;
 
-    private CloudinaryConfig _cloudinaryConfig;
+    private readonly CloudinaryConfig _cloudinaryConfig;
     public StaffController(ClothingManagementDBContext context, CloudinaryConfig cloudinaryConfig)
     {
 
@@ -28,6 +29,7 @@ public class StaffController : Controller
     [Route("/data/staffs")]
     public ActionResult GetAllStaff()
     {
+
         var staffs = _context.Users.Where(user => user.Position != "Chủ cửa hàng");
         return new JsonResult(staffs);
     }
@@ -46,10 +48,11 @@ public class StaffController : Controller
     public ActionResult AddStaff([FromForm] StaffDto staffDto)
     {
         var image = staffDto.Image;
+
         var uploadResult = new ImageUploadResult();
 
         //Upload file to Cloudinary Server Using File ReadStream
-        if (image.Length > 0)
+        if (image != null)
         {
             using (var stream = image.OpenReadStream())
             {
@@ -82,12 +85,18 @@ public class StaffController : Controller
 
         };
 
+        try
+        {
+            //Save One user to Database
+            _context.Users.Add(user);
+            _context.SaveChanges();
+            return Ok(user);
+        }
+        catch (Exception ex)
+        {
 
-        //Save One user to Database
-        _context.Users.Add(user);
-        _context.SaveChanges();
+            return StatusCode(500);
+        }
 
-
-        return Ok();
     }
 }
