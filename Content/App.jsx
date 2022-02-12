@@ -13,30 +13,13 @@ import Navbar from "./components/navbar/Navbar.jsx";
 import Sidebar from "./components/sidebar/Sidebar.jsx";
 import Product from "./pages/Product.jsx";
 import Staff from "./pages/staff/Staff.jsx";
-import AddProductModal from "../Content/components/modal/AddProductModal.jsx"
 
 export default class HomeComponent extends Component {
-    constructor() {
-        super();
-        this.state = {
-            show: false
-        };
-        this.showModal = this.showModal.bind(this);
-        this.hideModal = this.hideModal.bind(this);
-    }
-
-    showModal = () => {
-        this.setState({ show: true });
-    };
-
-    hideModal = () => {
-        this.setState({ show: false });
-    };
 
   render() {
     const app = (
         <div>
-            <AddProductModal handleClose={this.hideModal} show={this.state.show} />
+            
         <Sidebar />
         <div className="layout__content">
           <Navbar />
@@ -46,9 +29,9 @@ export default class HomeComponent extends Component {
               <Route path="/home" component={Dashboard} />
               <Route
                 path="/products"
-                            component={() => (
-                                <Product showModal={this.showModal} />
-                                )}
+                component={() => (
+                    <Product />//showModal={this.showModal} />
+                    )}
             />
               <Route path="/staffs" component={Staff} />
               <Route

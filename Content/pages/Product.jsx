@@ -1,9 +1,30 @@
 ﻿import React, { useEffect, useState } from "react";
+import AddProductModal from '../components/modal/AddProductModal.jsx'
+import UpdateProductModal from '../components/modal/UpdateProductModal.jsx'
 
-const Product = ({showModal}) => {
+const Product = () => {
     const [products, setProducts] = useState([]);
+    const [productSelected, setProductSelected] = useState()
     const [shirts, setShirts] = useState([]);
     const [trousers, setTrousers] = useState([]);
+    const [showAddModal, setShowAddModal] = useState(false);
+    const [showUpdateModal, setShowUpdateModal] = useState(false);
+
+    const handleShowAddModal = () => {
+        setShowModal(true)
+    }
+
+    const handleCloseAddModal = () => {
+        setShowModal(false)
+    }
+
+    const handleShowUpdateModal = () => {
+        setShowUpdateModal(true)
+    }
+
+    const handleCloseUpdateModal = () => {
+        setShowUpdateModal(false)
+    }
 
     const loadProductsFromServer = () => {
         const xhr = new XMLHttpRequest();
@@ -39,8 +60,22 @@ const Product = ({showModal}) => {
         loadProductsFromServer();
     }, []);
 
+    const handleClickUpdate = (product) => {
+        setProductSelected(product)
+        handleShowUpdateModal();
+    }
+
     return (
         <div className="product-container">
+            <AddProductModal 
+                handleClose={handleCloseAddModal} 
+                show={showAddModal} 
+            />
+            <UpdateProductModal 
+                handleClose={handleCloseUpdateModal} 
+                show={showUpdateModal} 
+                productSelected={productSelected}
+            />
             <div className="product-filter">
                 <div className="product-filter__card">
                     <h4>Tìm kiếm</h4>
@@ -84,7 +119,7 @@ const Product = ({showModal}) => {
                                 <div className="price">{product.costPrice}</div>
                                 <div className="quantity">{product.quantity}</div>
                                 <div className="group-btn">
-                                    <button className="btn-edit">
+                                    <button className="btn-edit" onClick={() => { handleClickUpdate(product) }}>
                                         <i class="bx bx-edit"></i>
                                     </button>
                                     <button className="btn-delete">
@@ -96,7 +131,7 @@ const Product = ({showModal}) => {
                     </div>
                 </div>
                 <div className="product-group-btn">
-                    <button className="btn-new" onClick={showModal}>
+                    <button className="btn-new" onClick={handleShowAddModal}>
                         <i class="bx bx-plus"></i>
                         Thêm mới
                     </button>

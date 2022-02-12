@@ -2,26 +2,10 @@
     --pimary-color: #349eff;
 }
 
-.open-modal-btn {
-    padding: 20px 40px;
-    border: none;
-    outline: none;
-    border-radius: 6px;
-    position: relative;
-    font-size: large;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    cursor: pointer;
-}
-
-    .open-modal-btn:hover {
-        opacity: calc(90%);
-    }
-
 .modal {
     position: fixed;
     top: 0;
+    left: 0;
     height: 100vh;
     width: 100vw;
     background: rgba(0, 0, 0, 0.6);
@@ -31,8 +15,8 @@
 .modal__inner {
     width: 65%;
     top: 5%;
-    position: relative;
     margin: auto;
+    position: relative;
     background: white;
     border-radius: 5px;
     overflow: hidden;
