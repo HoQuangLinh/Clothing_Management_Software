@@ -1,3 +1,12 @@
+.staff-show-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+}
 .add_staff-modal {
   position: absolute;
   top: 50%;
@@ -5,20 +14,20 @@
   transform: translate(-50%, -50%);
   z-index: 10;
 }
-.div_staff {
+.staff-container {
   position: relative;
   display: flex;
   margin-left: 30px;
 }
-.div_right {
+.staff-container-right {
   margin-left: 20px;
   width: 1500px;
 }
-.div_left {
+.staff-container-left {
   margin-top: 10px;
 }
 
-.div_search {
+.staff-container-search {
   width: 224px;
   height: 125px;
   margin-bottom: 20px;
@@ -27,11 +36,11 @@
   animation: fade-in-ani 1.5s;
   background: #ffffff;
 }
-.header_search {
+.staff-container-search-header {
   margin-top: 20px;
   margin-left: 20px;
 }
-.search {
+.staff-container-search-input {
   width: 200px;
   height: 40px;
   position: relative;
@@ -41,13 +50,13 @@
   border-bottom: 1px solid #a19b9b;
   margin-top: 20px;
 }
-.search > i {
+.staff-container-search-input > i {
   font-size: 1rem;
   position: absolute;
   right: 10px;
   margin-top: 10px;
 }
-.search > input {
+.staff-container-search-input > input {
   background-color: #fff;
   height: 100%;
   width: 100%;
@@ -110,15 +119,13 @@
 #staff-table tbody {
   background-color: #fff;
 }
-#staff-table tr td {
-  cursor: pointer;
-}
+
 #staff-table tr:nth-child(even) {
   background-color: #e1ecfd;
 }
 
 #staff-table tr:hover {
-  background-color: rgb(3, 169, 244);
+  background-color: #f3d8bb;
 }
 
 #staff-table th {
@@ -129,30 +136,7 @@
   color: white;
   border: 1px solid rgb(3, 169, 244);
 }
-#staff-table td:first-child,
-#staff-table th:first-child {
-  width: 130px;
-}
-#staff-table td:nth-child(2),
-#staff-table th:nth-child(2) {
-  width: 130px;
-}
-#staff-table td:nth-child(3),
-#staff-table th:nth-child(3) {
-  width: 230px;
-}
-#staff-table td:nth-child(4),
-#staff-table th:nth-child(4) {
-  width: 230px;
-}
-#staff-table td:nth-child(5),
-#staff-table th:nth-child(5) {
-  width: 120px;
-}
-#staff-table td:nth-child(6),
-#staff-table th:nth-child(6) {
-  width: 140px;
-}
+
 @keyframes fade-in-ani {
   from {
     opacity: 0;

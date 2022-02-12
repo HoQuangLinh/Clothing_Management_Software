@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 
-import useFormStaff from "./form_validate/UseFormStaff.jsx";
-import validateAddStaff from "./form_validate/ValidateAddStaff.jsx";
+import useFormStaff from "./form_validate/useFormStaff.jsx";
+import validateAddStaff from "./form_validate/validateAddStaff.jsx";
 import axios from "axios";
 
 const AddStaff = ({ setShowFormAddStaff }) => {
@@ -32,6 +32,8 @@ const AddStaff = ({ setShowFormAddStaff }) => {
     formStaff.append("email", staff.email);
     formStaff.append("phone", staff.phone);
     formStaff.append("image", avatar);
+
+    //Use HTTP Post Method to StaffsController
     axios
       .post("/data/addStaff", formStaff)
       .then((res) => {
