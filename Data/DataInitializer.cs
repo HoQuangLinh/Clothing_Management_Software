@@ -94,6 +94,62 @@ namespace Clothing_Management.Data
                     context.Users.AddRange(users);
                     context.SaveChanges();
                 }
+                 if (!context.Customers.Any())
+                {
+                    List<Customer> customers = new List<Customer>(){
+                            new Customer(){
+                                Id="1",
+                                Name="Hồ Quang Linh",
+                                Phone="01234567",
+                                Address="Lộc Ninh, Bình Phước",
+                                Email="hoquanglinh2710@gmail.com",
+                                Gender="Nam",
+                                // Total=100000,
+                                Point=1200,
+                            },  new Customer(){
+                                Id="2",
+                                Name="Nguyễn Tiến Đạt",
+                                Phone="01234567",
+                                Address="Lộc Ninh, Bình Phước",
+                                Email="hoquanglinh2710@gmail.com",
+                                Gender="Nam",
+                                // Total=100000,
+                                Point=1200,
+                            },
+                                new Customer(){
+                                Id="3",
+                                Name="Phạm Xuân Bách",
+                                Phone="01234567",
+                                Address="Lộc Ninh, Bình Phước",
+                                Email="hoquanglinh2710@gmail.com",
+                                Gender="Nam",
+                                // Total=100000,
+                                Point=1200,
+                            },
+                                new Customer(){
+                                Id="4",
+                                Name="Hồ Quang Linh",
+                                Phone="01234567",
+                                Address="Lộc Ninh, Bình Phước",
+                                Email="hoquanglinh2710@gmail.com",
+                                Gender="Nam",
+                                // Total=100000,
+                                Point=1200,
+                            },
+                                new Customer(){
+                                Id="5",
+                                Name="Hồ Quang Linh",
+                                Phone="01234567",
+                                Address="Lộc Ninh, Bình Phước",
+                                Email="hoquanglinh2710@gmail.com",
+                                Gender="Nam",
+                                // Total=100000,
+                                Point=1200,
+                            },
+                        };
+                    context.Customers.AddRange(customers);
+                    context.SaveChanges();
+                }
             }
         }
     }
