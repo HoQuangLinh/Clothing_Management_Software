@@ -3,23 +3,19 @@ import axios from "axios";
 import useFormProduct from './useFormProduct'
 import validateProduct from './validateProduct'
 
-const UpdateProductModal = ({ handleClose, show, productSelected }) => {
+const UpdateProductModal = ({ handleClose, show, product, setProduct }) => {
     const inputProductImage = useRef(null);
-    const [categoryId, setCategoryId] = useState(productSelected.categoriesId);
-    const [size, setSize] = useState(productSelected.size);
+    const [categoryId, setCategoryId] = useState(0);
+    const [size, setSize] = useState(product.size);
     const [categories, setCategories] = useState([])
     const [productImage, setProductImage] = useState();
     const [qrImage, setQrImage] = useState(
         "https://res.cloudinary.com/hoquanglinh/image/upload/v1639458680/Linh/cwq6qhmybgzhvpp58ytp.png"
     );
-    const [product, setProduct] = useState({
-        name: productSelected.name,
-        costPrice: productSelected.costPrice,
-        salePrice: productSelected.salePrice,
-        originPrice: productSelected.originPrice,
-        discount: productSelected.discount,
-        quantity: productSelected.quantity,
-    });
+    let options = null
+    const sizeList = [
+        "3XL", "XXL", "XL", "L", "M", "S"
+    ]
 
     const onImageChange = (event) => {
         if (event.target.files && event.target.files[0]) {
@@ -28,7 +24,7 @@ const UpdateProductModal = ({ handleClose, show, productSelected }) => {
     };
 
     const submitForm = () => {
-
+        console.log(product)
     }
 
     const { handleChange, handleSubmit, errors } = useFormProduct(
@@ -53,6 +49,9 @@ const UpdateProductModal = ({ handleClose, show, productSelected }) => {
         loadCategoriesFromServer();
     }, []);
 
+    if (product) {
+        options = sizeList.map((el) => <option key={el} value={el} selected={el === product.size}>{el}</option>);
+    }
     return (
         <div className={show ? "modal" : "modal hide"}>
             <div className="modal__inner">
@@ -81,9 +80,10 @@ const UpdateProductModal = ({ handleClose, show, productSelected }) => {
                                 onChange={(e) => { setCategoryId(e.target.value) }}
                                 className="add_product_field-select"
                             >
-                                {categories.map((category, index) => {
+                                {product && categories.map((category, index) => {
                                     return (
-                                        <option key={index} value={category.id}>
+                                        <option key={index} value={category.id} 
+                                        selected={product.categoriesId === category.id}>
                                             {category.name}
                                         </option>
                                     );
@@ -119,12 +119,7 @@ const UpdateProductModal = ({ handleClose, show, productSelected }) => {
                                 onChange={(e) => { setSize(e.target.value) }}
                                 className="add_product_field-select"
                             >
-                                <option value="3XL">3XL</option>
-                                <option value="XXL">XXL</option>
-                                <option value="XL">XL</option>
-                                <option value="L">L</option>
-                                <option value="M">M</option>
-                                <option value="S">S</option>
+                                {options}
                             </select>
                         </div>
                         <div className="add-product__field">
@@ -151,7 +146,7 @@ const UpdateProductModal = ({ handleClose, show, productSelected }) => {
                             }} src={
                                 productImage
                                     ? URL.createObjectURL(productImage)
-                                    : "https://res.cloudinary.com/hoquanglinh/image/upload/v1639458680/Linh/cwq6qhmybgzhvpp58ytp.png"
+                                    : product.imageDisplay
                             } alt="" />
                         </div>
                         <div className="add-product__field">

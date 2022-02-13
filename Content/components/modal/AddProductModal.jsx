@@ -29,9 +29,9 @@ const AddProductModal = ({ handleClose, show }) => {
     };
 
     const submitForm = () => {
-        console.log(product)
-        console.log(categoryId)
-        console.log(size)
+        //console.log(product)
+        //console.log(categoryId)
+        //console.log(size)
         var data = new FormData()
         data.append("Name", product.name)
         data.append("OriginPrice", product.originPrice)
@@ -39,7 +39,7 @@ const AddProductModal = ({ handleClose, show }) => {
         data.append("Discount", product.discount)
         data.append("SalePrice", product.salePrice)
         data.append("Image", productImage ? productImage : "")
-        data.append("Size", product.size)
+        data.append("Size", size)
         data.append("Quantity", product.quantity)
         data.append("CategoriesId", categoryId)
 

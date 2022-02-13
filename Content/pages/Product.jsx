@@ -3,19 +3,31 @@ import AddProductModal from '../components/modal/AddProductModal.jsx'
 import UpdateProductModal from '../components/modal/UpdateProductModal.jsx'
 
 const Product = () => {
+    const [productSelected, setProductSelected] = useState({
+        "id": 0,
+        "name": "",
+        "originPrice": 0,
+        "costPrice": 0,
+        "discount": 0,
+        "salePrice": 0,
+        "imageDisplay": "",
+        "qrCodeUrl": "",
+        "size": "",
+        "quantity": 0,
+        "categoriesId": 0,
+    })
     const [products, setProducts] = useState([]);
-    const [productSelected, setProductSelected] = useState()
     const [shirts, setShirts] = useState([]);
     const [trousers, setTrousers] = useState([]);
     const [showAddModal, setShowAddModal] = useState(false);
     const [showUpdateModal, setShowUpdateModal] = useState(false);
 
     const handleShowAddModal = () => {
-        setShowModal(true)
+        setShowAddModal(true)
     }
 
     const handleCloseAddModal = () => {
-        setShowModal(false)
+        setShowAddModal(false)
     }
 
     const handleShowUpdateModal = () => {
@@ -60,11 +72,6 @@ const Product = () => {
         loadProductsFromServer();
     }, []);
 
-    const handleClickUpdate = (product) => {
-        setProductSelected(product)
-        handleShowUpdateModal();
-    }
-
     return (
         <div className="product-container">
             <AddProductModal 
@@ -74,7 +81,8 @@ const Product = () => {
             <UpdateProductModal 
                 handleClose={handleCloseUpdateModal} 
                 show={showUpdateModal} 
-                productSelected={productSelected}
+                product={productSelected}
+                setProduct={setProductSelected}
             />
             <div className="product-filter">
                 <div className="product-filter__card">
@@ -119,7 +127,11 @@ const Product = () => {
                                 <div className="price">{product.costPrice}</div>
                                 <div className="quantity">{product.quantity}</div>
                                 <div className="group-btn">
-                                    <button className="btn-edit" onClick={() => { handleClickUpdate(product) }}>
+                                    <button className="btn-edit" onClick={() => {
+                                        setProductSelected(product);
+                                        productSelected && handleShowUpdateModal()
+                                        console.log(productSelected)
+                                    }}>
                                         <i class="bx bx-edit"></i>
                                     </button>
                                     <button className="btn-delete">
