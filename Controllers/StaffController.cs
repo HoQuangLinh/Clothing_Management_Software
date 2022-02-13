@@ -122,9 +122,9 @@ public class StaffController : Controller
     }
 
     //Edit Staff By Id
-    [Route("/data/staffs/{id}")]
+    [Route("/data/staffs/edit/{id}")]
     [HttpPut]
-    public ActionResult UpdateStaffById(int id, StaffDto staffDto)
+    public ActionResult EditStaffById(int id, StaffDto staffDto)
     {
         var staff = _context.Users.Where(user => user.Id == id).FirstOrDefault();
         if (staff == null)

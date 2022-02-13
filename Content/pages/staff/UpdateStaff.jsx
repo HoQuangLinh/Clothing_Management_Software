@@ -35,7 +35,7 @@ const UpdateStaff = ({ staffId, setShowFormUpdateStaff }) => {
 
     //post to API
     axios
-      .put(`/data/staffs/${staffId}`, formStaff, {
+      .put(`/data/staffs/edit/${staffId}`, formStaff, {
         headers: {
           "Content-Type": "multipart/form-data",
           "Access-Control-Allow-Origin": "*",
