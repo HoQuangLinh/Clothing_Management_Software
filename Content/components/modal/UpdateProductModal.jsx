@@ -3,10 +3,10 @@ import axios from "axios";
 import useFormProduct from './useFormProduct'
 import validateProduct from './validateProduct'
 
-const UpdateProductModal = ({ handleClose, show, product, setProduct }) => {
+const UpdateProductModal = ({ handleClose, show, product, setProduct, reloadProduct }) => {
     const inputProductImage = useRef(null);
     const [categoryId, setCategoryId] = useState(0);
-    const [size, setSize] = useState(product.size);
+    const [size, setSize] = useState("");
     const [categories, setCategories] = useState([])
     const [productImage, setProductImage] = useState();
     const [qrImage, setQrImage] = useState(
@@ -25,6 +25,27 @@ const UpdateProductModal = ({ handleClose, show, product, setProduct }) => {
 
     const submitForm = () => {
         console.log(product)
+        console.log('size', size)
+        console.log('category id', categoryId)
+
+        var data = new FormData()
+        data.append("Id", product.id)
+        data.append("Name", product.name)
+        data.append("OriginPrice", product.originPrice)
+        data.append("CostPrice", product.costPrice)
+        data.append("Discount", product.discount)
+        data.append("SalePrice", product.salePrice)
+        data.append("Image", productImage ? productImage : "")
+        data.append("Size", size)
+        data.append("Quantity", product.quantity)
+        data.append("CategoriesId", categoryId)
+
+        //post data
+        axios.post("/api/products/update", data).then((res) => {
+            console.log(res.data);
+            handleClose();
+            reloadProduct();
+        });
     }
 
     const { handleChange, handleSubmit, errors } = useFormProduct(
@@ -40,14 +61,15 @@ const UpdateProductModal = ({ handleClose, show, product, setProduct }) => {
         xhr.onload = () => {
             const data = JSON.parse(xhr.responseText);
             setCategories(data);
-            setCategoryId(data[0].id)
         };
         xhr.send();
     };
 
     useEffect(() => {
         loadCategoriesFromServer();
-    }, []);
+        setCategoryId(product.categoriesId)
+        setSize(product.size)
+    }, [product]);
 
     if (product) {
         options = sizeList.map((el) => <option key={el} value={el} selected={el === product.size}>{el}</option>);
@@ -56,7 +78,7 @@ const UpdateProductModal = ({ handleClose, show, product, setProduct }) => {
         <div className={show ? "modal" : "modal hide"}>
             <div className="modal__inner">
                 <div className="modal__header">
-                    <h2>Thêm sản phẩm</h2>
+                    <h2>Cập nhật sản phẩm</h2>
                     <i class='bx bx-x' onClick={handleClose}></i>
                 </div>
                 <div className="modal__body">

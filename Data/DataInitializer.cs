@@ -171,9 +171,9 @@ namespace Clothing_Management.Data
                         }
                     };
                     context.Products.AddRange(products);
-                 if (!context.Customers.Any())
-                {
-                    List<Customer> customers = new List<Customer>(){
+                    if (!context.Customers.Any())
+                    {
+                        List<Customer> customers = new List<Customer>(){
                             new Customer(){
                                 Id="1",
                                 Name="Hồ Quang Linh",
@@ -226,6 +226,7 @@ namespace Clothing_Management.Data
                         };
                     context.Customers.AddRange(customers);
                     context.SaveChanges();
+                    }
                 }
             }
         }

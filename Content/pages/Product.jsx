@@ -77,12 +77,14 @@ const Product = () => {
             <AddProductModal 
                 handleClose={handleCloseAddModal} 
                 show={showAddModal} 
+                reloadProduct={loadProductsFromServer}
             />
             <UpdateProductModal 
                 handleClose={handleCloseUpdateModal} 
                 show={showUpdateModal} 
                 product={productSelected}
                 setProduct={setProductSelected}
+                reloadProduct={loadProductsFromServer}
             />
             <div className="product-filter">
                 <div className="product-filter__card">
@@ -130,11 +132,13 @@ const Product = () => {
                                     <button className="btn-edit" onClick={() => {
                                         setProductSelected(product);
                                         productSelected && handleShowUpdateModal()
-                                        console.log(productSelected)
+                                        //console.log(productSelected)
                                     }}>
                                         <i class="bx bx-edit"></i>
                                     </button>
-                                    <button className="btn-delete">
+                                    <button className="btn-delete" onClick={() => {
+                                        
+                                    }}>
                                         <i class="bx bx-trash"></i>
                                     </button>
                                 </div>

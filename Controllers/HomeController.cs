@@ -58,7 +58,6 @@ namespace Clothing_Management.Controllers
             {
                 using (var stream = image.OpenReadStream())
                 {
-
                     var uploadParams = new ImageUploadParams()
                     {
                         File = new FileDescription(image.Name, stream),
@@ -66,7 +65,6 @@ namespace Clothing_Management.Controllers
                     };
 
                     uploadResult = _cloudinaryConfig.Cloudinary.Upload(uploadParams);
-
                 }
             }
             //Get Url from Cloudinary and Store to staffDto object 
@@ -89,6 +87,54 @@ namespace Clothing_Management.Controllers
             _context.SaveChanges();
 
             return Ok();
+        }
+
+        [Route("/api/products/update")]
+        [HttpPost]
+        public IActionResult UpdateProduct([FromForm]ProductDto productDto)
+        {
+            var product = _context.Products.SingleOrDefault(x => x.Id == productDto.Id);
+
+            if (product == null)
+                return Ok("Update failed");
+
+            if (productDto.Image != null)
+            {
+                var image = productDto.Image;
+                var uploadResult = new ImageUploadResult();
+
+                //Upload file to Cloudinary Server Using File ReadStream
+                if (image.Length > 0)
+                {
+                    using (var stream = image.OpenReadStream())
+                    {
+                        var uploadParams = new ImageUploadParams()
+                        {
+                            File = new FileDescription(image.Name, stream),
+
+                        };
+
+                        uploadResult = _cloudinaryConfig.Cloudinary.Upload(uploadParams);
+                    }
+                }
+                //Get Url from Cloudinary and Store to staffDto object 
+                productDto.ImageDisplay = uploadResult.Url?.ToString();
+                product.ImageDisplay = productDto.ImageDisplay;
+            }
+
+            //update product
+            product.Name = productDto.Name;
+            product.OriginPrice = productDto.OriginPrice;
+            product.CostPrice = productDto.CostPrice;
+            product.SalePrice = productDto.SalePrice;
+            product.Discount = productDto.Discount;
+            product.Size = productDto.Size;
+            product.Quantity = productDto.Quantity;
+            product.CategoriesId = productDto.CategoriesId;
+            
+            _context.SaveChanges();
+
+            return Ok("Update success");
         }
 
         public class IndexViewModel

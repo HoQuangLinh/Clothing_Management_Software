@@ -8,7 +8,7 @@ namespace Clothing_Management.Dtos
 {
     public class ProductDto
     {
-        
+        public int Id { get; set; }
         public string Name { get; set; }
         public double OriginPrice { get; set; }
         public double CostPrice { get; set; }

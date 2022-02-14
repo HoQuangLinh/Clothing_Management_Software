@@ -3,7 +3,7 @@ import axios from "axios";
 import useFormProduct from './useFormProduct'
 import validateProduct from './validateProduct'
 
-const AddProductModal = ({ handleClose, show }) => {
+const AddProductModal = ({ handleClose, show, reloadProduct }) => {
     const inputProductImage = useRef(null);
     const [productId, setProductId] = useState();
     const [categoryId, setCategoryId] = useState();
@@ -47,6 +47,7 @@ const AddProductModal = ({ handleClose, show }) => {
         axios.post("/api/products/new", data).then((res) => {
             console.log(res.data);
             handleClose();
+            reloadProduct();
         });
     }
 
