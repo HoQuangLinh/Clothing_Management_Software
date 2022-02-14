@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import AddStaff from "./AddStaff.jsx";
 import UpdateStaff from "./UpdateStaff.jsx";
+import Dialog from "../../components/dialog/Dialog.jsx";
 
 const Staff = (props) => {
   const [staffs, setStaffs] = useState([]);
@@ -12,6 +13,7 @@ const Staff = (props) => {
   const [textSearch, setTextSearch] = useState("");
   const [showFormAddStaff, setShowFormAddStaff] = useState(false);
   const [showFormUpdateStaff, setShowFormUpdateStaff] = useState(false);
+  const [showModalDelete, setShowModalDelete] = useState(false);
   //Get All Staffs from StaffControler
   useEffect(() => {
     axios
@@ -23,7 +25,7 @@ const Staff = (props) => {
       .catch((err) => {
         console.log(err.response);
       });
-  }, [showFormAddStaff, showFormUpdateStaff]);
+  }, [showFormAddStaff, showFormUpdateStaff, showModalDelete]);
 
   //Filter Staffs By Position
   useEffect(() => {
@@ -59,6 +61,19 @@ const Staff = (props) => {
       setStaffs(staffFilter);
     }
   }, [textSearch]);
+
+  //Handle Delete a selected staff
+  const handleDeleteStaff = (id) => {
+    axios
+      .delete(`/data/staffs/delete/${id}`)
+      .then((res) => {
+        alert("Bạn đã xoá nhân viên thành công");
+        setShowModalDelete(false);
+      })
+      .catch((err) => {
+        alert("Rất tiếc nhân viên này hiện tại không thể xoá");
+      });
+  };
   return (
     <div className="staff-container">
       {showFormAddStaff && (
@@ -73,6 +88,18 @@ const Staff = (props) => {
             setShowFormUpdateStaff={setShowFormUpdateStaff}
           />
         </div>
+      )}
+      {showModalDelete && (
+        <Dialog
+          handleAction={() => {
+            handleDeleteStaff(selectedStaff.id);
+          }}
+          handleCancel={() => {
+            setShowModalDelete(false);
+          }}
+          title="Xoá nhân viên"
+          content={`Bạn có muốn xoá nhân viên ${selectedStaff.fullname}`}
+        />
       )}
       <div className="staff-container-left">
         <div className="staff-container-search">
@@ -131,7 +158,12 @@ const Staff = (props) => {
               <tbody>
                 {staffs.map((staff, index) => {
                   return (
-                    <tr key={index}>
+                    <tr
+                      onClick={() => {
+                        setSelectedStaff(staff);
+                      }}
+                      key={index}
+                    >
                       <td>{staff.id}</td>
                       <td>{staff.fullname}</td>
                       <td>{staff.position}</td>
@@ -139,7 +171,6 @@ const Staff = (props) => {
                       <td>{staff.gender}</td>
                       <td
                         onClick={() => {
-                          setSelectedStaff(staff);
                           setShowFormUpdateStaff(true);
                         }}
                       >
@@ -152,7 +183,11 @@ const Staff = (props) => {
                           class="bx bxs-edit"
                         ></i>
                       </td>
-                      <td>
+                      <td
+                        onClick={() => {
+                          setShowModalDelete(true);
+                        }}
+                      >
                         <i
                           style={{
                             fontSize: 18,

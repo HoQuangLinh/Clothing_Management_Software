@@ -115,7 +115,7 @@ public class StaffController : Controller
 
             return StatusCode(500, new
             {
-                Error = "Duplicate some properties in table"
+                Error = ex.ToString()
             });
         }
 
@@ -189,12 +189,41 @@ public class StaffController : Controller
         {
             return StatusCode(500, new
             {
-                Error = "Duplicate some properties in table"
+                Error = ex.ToString()
             });
         }
 
 
         return Ok();
     }
+
+    [HttpDelete]
+    [Route("/data/staffs/delete/{id}")]
+    public ActionResult DeleteStaff(int id)
+    {
+        var user = _context.Users.SingleOrDefault(user => user.Id == id && user.Position != "Chủ cửa hàng");
+        if (user == null)
+        {
+            return NotFound(new
+            {
+                Error1 = $"Cannot find staff with Id is {id}"
+            });
+        }
+        try
+        {
+            _context.Users.Remove(user);
+            _context.SaveChanges();
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new
+            {
+                Error = ex.ToString()
+            });
+        }
+
+    }
+
 
 }
