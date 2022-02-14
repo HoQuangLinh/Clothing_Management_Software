@@ -14,16 +14,23 @@ import Sidebar from "./components/sidebar/Sidebar.jsx";
 import Product from "./pages/Product.jsx";
 import Staff from "./pages/staff/Staff.jsx";
 import Customer from "./pages/customer/customer.jsx";
+import Login from "./pages/login/Login.jsx";
 export default class HomeComponent extends Component {
+  state = { isAuthenticated: false };
   render() {
-    const app = (
+    const app = !this.state.isAuthenticated ? (
+      <Switch>
+        <Route exact path="/" render={() => <Redirect to="/login" />} />
+        <Route path="/login" component={Login} />
+      </Switch>
+    ) : (
       <div>
         <Sidebar />
         <div className="layout__content">
           <Navbar />
           <div className="layout__content-routes">
             <Switch>
-              <Route exact path="/" render={() => <Redirect to="/home" />} />
+              <Route exact path="/" render={() => <Redirect to="/login" />} />
               <Route path="/home" component={Dashboard} />
               <Route
                 path="/products"
