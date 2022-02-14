@@ -20,8 +20,13 @@ export default class HomeComponent extends Component {
   render() {
     const app = !this.state.isAuthenticated ? (
       <Switch>
-        <Route exact path="/" render={() => <Redirect to="/login" />} />
-        <Route path="/login" component={Login} />
+        <Route
+          path="/login"
+          component={() => {
+            return <Login isAuthenticated={this.state.isAuthenticated} />;
+          }}
+        />
+        <Route path="*" render={() => <Redirect to="/login" />} />
       </Switch>
     ) : (
       <div>

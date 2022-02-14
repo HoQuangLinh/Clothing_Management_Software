@@ -5,7 +5,8 @@ import axios from "axios";
 import { useHistory } from "react-router";
 
 import { Link } from "react-router-dom";
-const Login = ({ setIsAuticated }) => {
+const Login = ({ isAuthenticated, setIsAuticated }) => {
+  console.log(isAuthenticated);
   const history = useHistory();
   const [errorLogin, setErorLogin] = useState("");
   const submitForm = () => {

@@ -98,7 +98,7 @@ public class StaffController : Controller
             Position = staffDto.Position,
             Email = staffDto.Email,
             Phone = staffDto.Phone,
-            Password = staffDto.Password,
+            Password = BCrypt.Net.BCrypt.HashPassword(staffDto.Password),
             Fullname = staffDto.Fullname,
             Address = staffDto.Address
         };

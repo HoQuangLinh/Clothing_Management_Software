@@ -1,9 +1,11 @@
+using System.Reflection.Metadata;
 using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using System.Linq;
 using Clothing_Management.Models;
 using System.Collections.Generic;
+using Bc = BCrypt.Net;
 namespace Clothing_Management.Data
 {
     public class DataInitializer
@@ -15,11 +17,13 @@ namespace Clothing_Management.Data
                 var context = serviceScope.ServiceProvider.GetService<ClothingManagementDBContext>();
                 if (!context.Users.Any())
                 {
+
                     List<User> users = new List<User>(){
                             new User(){
+
                                 Fullname="Hồ Quang Linh",
                                 Username="admin",
-                                Password="111111",
+                                Password=Bc.BCrypt.HashPassword("111111"),
                                 Phone="0352942222",
                                 Address="Lộc Ninh, Bình Phước",
                                 Email="hoquanglinh2710@gmail.com",
@@ -31,7 +35,7 @@ namespace Clothing_Management.Data
 
                                 Fullname="Phạm Xuân Bách",
                                 Username="admin1",
-                                Password="111111",
+                                Password=Bc.BCrypt.HashPassword("111111"),
                                 Phone="0352443232",
                                 Address="Lộc Ninh, Bình Phước",
                                 Email="hoquanglinh2810@gmail.com",
@@ -44,7 +48,7 @@ namespace Clothing_Management.Data
 
                                 Fullname="Nguyễn Tiến Đạt",
                                 Username="admin2",
-                                Password="111111",
+                                Password=Bc.BCrypt.HashPassword("111111"),
                                 Phone="0939321939",
                                 Address="Lộc Ninh, Bình Phước",
                                 Email="datnguyen@gmail.com",
@@ -56,7 +60,7 @@ namespace Clothing_Management.Data
                               new User(){
                                 Fullname="Lê Thành Nam",
                                 Username="namks",
-                                Password="111111",
+                                Password=Bc.BCrypt.HashPassword("111111"),
                                 Phone="0938382937",
                                 Address="Lộc Ninh, Bình Phước",
                                 Email="nam2110@gmail.com",
@@ -68,7 +72,7 @@ namespace Clothing_Management.Data
 
                                 Fullname="Hoàn Tấn Tài",
                                 Username="tai1",
-                                Password="111111",
+                                Password=Bc.BCrypt.HashPassword("111111"),
                                 Phone="093839283",
                                 Address="Bảo An, Ninh Bình",
                                 Email="taiAli@gmail.com",
@@ -81,7 +85,7 @@ namespace Clothing_Management.Data
 
                                 Fullname="Lê Thị Minh Tâm",
                                 Username="tam21",
-                                Password="111111",
+                                Password=Bc.BCrypt.HashPassword("111111"),
                                 Phone="0938297361",
                                 Address="Lộc Ninh, Bình Phước",
                                 Email="lethanhtam@gmail.com",
@@ -94,7 +98,7 @@ namespace Clothing_Management.Data
                     context.Users.AddRange(users);
                     context.SaveChanges();
                 }
-                 if (!context.Customers.Any())
+                if (!context.Customers.Any())
                 {
                     List<Customer> customers = new List<Customer>(){
                             new Customer(){
