@@ -13,6 +13,7 @@ import Navbar from "./components/navbar/Navbar.jsx";
 import Sidebar from "./components/sidebar/Sidebar.jsx";
 import Product from "./pages/Product.jsx";
 import Staff from "./pages/staff/Staff.jsx";
+import Customer from "./pages/customer/customer.jsx";
 
 export default class HomeComponent extends Component {
 
@@ -34,6 +35,7 @@ export default class HomeComponent extends Component {
                     )}
             />
               <Route path="/staffs" component={Staff} />
+              <Route path="/customers" component={Customer} />
               <Route
                 path="*"
                 component={({ staticContext }) => {
