@@ -91,6 +91,7 @@ const UpdateStaff = ({ staffId, setShowFormUpdateStaff }) => {
           <input
             ref={inputAvatarRef}
             type="file"
+            accept="image/png, image/gif, image/jpeg"
             onChange={onImageChange}
             style={{ display: "none" }}
           />
@@ -106,7 +107,12 @@ const UpdateStaff = ({ staffId, setShowFormUpdateStaff }) => {
         <div className="update_staff-form">
           <div className="update_staff-form-row">
             <span>Mã nhân viên</span>
-            <input readOnly name="username" value={staff.id} type="text" />
+            <input
+              readOnly
+              name="username"
+              value={staff.id?.substring(0, 8)}
+              type="text"
+            />
             <p className="update_staff-form-error">{errors.username}</p>
           </div>
 

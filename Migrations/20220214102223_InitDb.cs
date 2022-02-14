@@ -40,8 +40,7 @@ namespace Clothing_Management.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(nullable: false),
                     Fullname = table.Column<string>(nullable: true),
                     Username = table.Column<string>(nullable: true),
                     Password = table.Column<string>(nullable: true),
@@ -98,7 +97,7 @@ namespace Clothing_Management.Migrations
                     Status = table.Column<string>(nullable: true),
                     TotalReturnPrice = table.Column<float>(nullable: false),
                     UserId = table.Column<string>(nullable: true),
-                    UserId1 = table.Column<int>(nullable: true),
+                    UserId1 = table.Column<Guid>(nullable: true),
                     CustomerId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -156,7 +155,7 @@ namespace Clothing_Management.Migrations
                     DateReturn = table.Column<DateTime>(nullable: false),
                     OrderId = table.Column<string>(nullable: true),
                     UserId = table.Column<string>(nullable: true),
-                    UserId1 = table.Column<int>(nullable: true)
+                    UserId1 = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
                 {

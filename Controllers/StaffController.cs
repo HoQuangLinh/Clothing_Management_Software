@@ -36,10 +36,10 @@ public class StaffController : Controller
 
     //Get Staff By Id
     [Route("/data/staffs/{id}")]
-    public ActionResult GetStaffById(int id)
+    public ActionResult GetStaffById(string id)
     {
 
-        var user = _context.Users.Select(user => new { user.Id, user.Username, user.Gender, user.Email, user.Phone, user.Fullname, user.Position, user.Address, user.ImageUrl }).Where(user => user.Position != "Chủ cửa hàng" && user.Id == id).FirstOrDefault();
+        var user = _context.Users.Select(user => new { user.Id, user.Username, user.Gender, user.Email, user.Phone, user.Fullname, user.Position, user.Address, user.ImageUrl }).Where(user => user.Position != "Chủ cửa hàng" && user.Id.ToString() == id).FirstOrDefault();
 
         if (user == null)
         {
@@ -124,9 +124,9 @@ public class StaffController : Controller
     //Edit Staff By Id
     [Route("/data/staffs/edit/{id}")]
     [HttpPut]
-    public ActionResult EditStaffById(int id, StaffDto staffDto)
+    public ActionResult EditStaffById(string id, StaffDto staffDto)
     {
-        var staff = _context.Users.Where(user => user.Id == id).FirstOrDefault();
+        var staff = _context.Users.Where(user => user.Id.ToString() == id).FirstOrDefault();
         if (staff == null)
         {
             return NotFound(new
@@ -199,9 +199,9 @@ public class StaffController : Controller
 
     [HttpDelete]
     [Route("/data/staffs/delete/{id}")]
-    public ActionResult DeleteStaff(int id)
+    public ActionResult DeleteStaff(string id)
     {
-        var user = _context.Users.SingleOrDefault(user => user.Id == id && user.Position != "Chủ cửa hàng");
+        var user = _context.Users.SingleOrDefault(user => user.Id.ToString() == id && user.Position != "Chủ cửa hàng");
         if (user == null)
         {
             return NotFound(new

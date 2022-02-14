@@ -164,7 +164,7 @@ const Staff = (props) => {
                       }}
                       key={index}
                     >
-                      <td>{staff.id}</td>
+                      <td>{staff.id.substring(0, 8)}</td>
                       <td>{staff.fullname}</td>
                       <td>{staff.position}</td>
                       <td>{staff.phone}</td>

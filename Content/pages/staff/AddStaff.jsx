@@ -8,14 +8,14 @@ const AddStaff = ({ setShowFormAddStaff }) => {
   const inputAvatarRef = useRef(null);
 
   const [staff, setStaff] = useState({
-    username: "admin",
-    password: "111111",
-    confirmPassword: "111111",
-    phone: "111111",
-    address: "1111",
+    username: "",
+    password: "",
+    confirmPassword: "",
+    phone: "",
+    address: "",
     sex: "",
-    email: "hoquanglinh2710@gmail.com",
-    fullname: "aaaaa",
+    email: "",
+    fullname: "",
     gender: "Nam",
     position: "Nhân viên thu ngân",
   });
@@ -86,6 +86,7 @@ const AddStaff = ({ setShowFormAddStaff }) => {
           <input
             ref={inputAvatarRef}
             type="file"
+            accept="image/png, image/gif, image/jpeg"
             onChange={onImageChange}
             style={{ display: "none" }}
           />

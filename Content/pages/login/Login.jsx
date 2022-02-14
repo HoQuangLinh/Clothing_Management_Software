@@ -17,7 +17,6 @@ const Login = ({ isAuthenticated, authenticated }) => {
     axios
       .post("/data/login", userFormLogin)
       .then((res) => {
-        console.log(res.data);
         // localStorage.setItem("user", JSON.stringify(res.data));
         authenticated();
       })
@@ -32,7 +31,15 @@ const Login = ({ isAuthenticated, authenticated }) => {
 
   return (
     <div className="login-container">
-      <div className="login-form">
+      <div
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            console.log("test enter");
+            handleSubmit(e);
+          }
+        }}
+        className="login-form"
+      >
         <h3 id="login-form-title">ĐĂNG NHẬP</h3>
 
         <div className="login-form-inputs">
