@@ -2,8 +2,6 @@ import { useState, useEffect } from "react";
 const useFormStaff = (callback, staff, setStaff, validate) => {
   const [errors, setErrors] = useState({});
   useEffect(() => {
-    console.log(errors);
-
     //Validate Success
     if (isSubmitting && Object.keys(errors).length === 0) {
       callback();
@@ -19,8 +17,7 @@ const useFormStaff = (callback, staff, setStaff, validate) => {
   };
 
   const handleSubmit = (e) => {
-    //check program whether have error or not, if have error then setError
-    //if no error then submit form
+    //Set errors when submitting
     e.preventDefault();
     setIsSubmiting(true);
     //validate(values)
