@@ -17,13 +17,25 @@ import Customer from "./pages/customer/customer.jsx";
 import Login from "./pages/login/Login.jsx";
 export default class HomeComponent extends Component {
   state = { isAuthenticated: false };
+
   render() {
+    console.log("rerender");
     const app = !this.state.isAuthenticated ? (
       <Switch>
         <Route
           path="/login"
           component={() => {
-            return <Login isAuthenticated={this.state.isAuthenticated} />;
+            const authenticated = () => {
+              this.setState({
+                isAuthenticated: true,
+              });
+            };
+            return (
+              <Login
+                authenticated={authenticated}
+                isAuthenticated={this.state.isAuthenticated}
+              />
+            );
           }}
         />
         <Route path="*" render={() => <Redirect to="/login" />} />
@@ -35,8 +47,8 @@ export default class HomeComponent extends Component {
           <Navbar />
           <div className="layout__content-routes">
             <Switch>
-              <Route exact path="/" render={() => <Redirect to="/login" />} />
               <Route path="/home" component={Dashboard} />
+              <Route path="/login" render={() => <Redirect to="/home" />} />
               <Route
                 path="/products"
                 component={() => (

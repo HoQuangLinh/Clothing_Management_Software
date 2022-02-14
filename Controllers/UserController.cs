@@ -1,5 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Clothing_Management.Models;
+using Clothing_Management.Dtos;
+using System.Linq;
+using System;
 namespace Clothing_Management.Controllers
 {
     public class UserController : Controller
@@ -10,16 +13,38 @@ namespace Clothing_Management.Controllers
             _context = context;
         }
 
-        [Route("/data/login/{key}")]
-        [HttpGet]
-        public ActionResult Login(string key)
+        [Route("/data/login")]
+        [HttpPost]
+        public ActionResult Login([FromForm] UserLoginDto userLoginDto)
         {
-            string passwordHash = BCrypt.Net.BCrypt.HashPassword(key);
+            //Find User exist in Database, if user no exists return NotFound
+            var user = _context.Users.SingleOrDefault(user => user.Username == userLoginDto.UserName);
+            if (user == null)
+            {
+                return NotFound(new
+                {
+                    Error = $"User {userLoginDto.UserName} not exist"
+                });
+            }
+
+            //If User exist, verify password
+            bool verifiedPassword = BCrypt.Net.BCrypt.Verify(userLoginDto.Password, user.Password);
+            if (!verifiedPassword)
+            {
+                return StatusCode(401, new
+                {
+                    Error = "User name or password is incorrect"
+                });
+
+            }
             return Ok(new
             {
-                password = key,
-                passwordHash = passwordHash
+                id = user.Id,
+                username = user.Username,
+                imageUrl = user.ImageUrl
             });
+
+
         }
     }
 }

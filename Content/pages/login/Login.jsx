@@ -5,17 +5,21 @@ import axios from "axios";
 import { useHistory } from "react-router";
 
 import { Link } from "react-router-dom";
-const Login = ({ isAuthenticated, setIsAuticated }) => {
+const Login = ({ isAuthenticated, authenticated }) => {
   console.log(isAuthenticated);
   const history = useHistory();
   const [errorLogin, setErorLogin] = useState("");
   const submitForm = () => {
+    console.log(user);
+    let userFormLogin = new FormData();
+    userFormLogin.append("username", user.username);
+    userFormLogin.append("password", user.password);
     axios
-      .post("https://clothesapp123.herokuapp.com/api/users/login", user)
+      .post("/data/login", userFormLogin)
       .then((res) => {
+        console.log(res.data);
         // localStorage.setItem("user", JSON.stringify(res.data));
-        setIsAuticated(true);
-        history.push("/home");
+        authenticated();
       })
       .catch((e) => {
         setErorLogin("Tên tài khoản hoặc mật khẩu không chính xác");
