@@ -1,6 +1,7 @@
 ﻿import React, { useEffect, useState } from "react";
 import AddProductModal from '../components/modal/AddProductModal.jsx'
 import UpdateProductModal from '../components/modal/UpdateProductModal.jsx'
+import DeleteProductDialog from "../components/dialog/DeleteProductDialog.jsx";
 
 const Product = () => {
     const [productSelected, setProductSelected] = useState({
@@ -17,10 +18,13 @@ const Product = () => {
         "categoriesId": 0,
     })
     const [products, setProducts] = useState([]);
+    const [shirtType, setShirtType] = useState(0);
     const [shirts, setShirts] = useState([]);
+    const [trouserType, setTrouserType] = useState(0);
     const [trousers, setTrousers] = useState([]);
     const [showAddModal, setShowAddModal] = useState(false);
     const [showUpdateModal, setShowUpdateModal] = useState(false);
+    const [showDialog, setShowDialog] = useState(false);
 
     const handleShowAddModal = () => {
         setShowAddModal(true)
@@ -38,7 +42,25 @@ const Product = () => {
         setShowUpdateModal(false)
     }
 
+    const handleShowDialog = () => {
+        setShowDialog(true)
+    }
+
+    const handleCloseDialog = () => {
+        setShowDialog(false)
+    }
+
     const loadProductsFromServer = () => {
+        const xhr = new XMLHttpRequest();
+        xhr.open("get", "/api/products", true);
+        xhr.onload = () => {
+            const data = JSON.parse(xhr.responseText);
+            setProducts(data);
+        };
+        xhr.send();
+    };
+
+    const filterProductsFromServer = () => {
         const xhr = new XMLHttpRequest();
         xhr.open("get", "/api/products", true);
         xhr.onload = () => {
@@ -86,6 +108,12 @@ const Product = () => {
                 setProduct={setProductSelected}
                 reloadProduct={loadProductsFromServer}
             />
+            <DeleteProductDialog
+                handleClose={handleCloseDialog}
+                show={showDialog}
+                product={productSelected}
+                reloadProduct={loadProductsFromServer}
+            />
             <div className="product-filter">
                 <div className="product-filter__card">
                     <h4>Tìm kiếm</h4>
@@ -93,23 +121,36 @@ const Product = () => {
                 </div>
                 <div className="product-filter__card">
                     <h4>Các loại áo</h4>
-                    <select name="shirts" id="shirts">
-                        <option value="all">Tất cả</option>
+                    <select name="shirts" id="shirts" 
+                        onChange={(e) => {
+                            setShirtType(e.target.value)
+                        }}>
+                        <option value={0}>Tất cả</option>
                         {shirts && shirts.map((shirt, index) => (
-                            <option key={index} value={shirt.name}>{shirt.name}</option>
+                            <option key={index} value={shirt.id}>{shirt.name}</option>
                         ))}
                     </select>
                 </div>
                 <div className="product-filter__card">
                     <h4>Các loại quần</h4>
-                    <select name="trousers" id="trousers">
-                        <option value="all">Tất cả</option>
+                    <select name="trousers" id="trousers"
+                        onChange={(e) => {
+                            setTrouserType(e.target.value)
+                        }}>
+                        <option value={0}>Tất cả</option>
                         {trousers && trousers.map((trouser, index) => (
-                            <option key={index} value={trouser.name}>{trouser.name}</option>
+                            <option key={index} value={trouser.id}>{trouser.name}</option>
                         ))}
                     </select>
                 </div>
-                <button className="btn-qrcode">Xem mã vạch</button>
+                <button 
+                    className="btn-qrcode" 
+                    onClick={() => {
+                        console.log("Loại quần", trouserType)
+                        console.log("Loại áo", shirtType)
+                    }}>
+                    Xem mã vạch
+                </button>
             </div>
             <div className="product-data">
                 <div className="product-list">
@@ -137,7 +178,8 @@ const Product = () => {
                                         <i class="bx bx-edit"></i>
                                     </button>
                                     <button className="btn-delete" onClick={() => {
-                                        
+                                        setProductSelected(product);
+                                        handleShowDialog()
                                     }}>
                                         <i class="bx bx-trash"></i>
                                     </button>

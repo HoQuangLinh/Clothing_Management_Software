@@ -137,6 +137,22 @@ namespace Clothing_Management.Controllers
             return Ok("Update success");
         }
 
+        [Route("/api/products/delete")]
+        [HttpPost]
+        public IActionResult DeleteProduct([FromForm]ProductDto productDto)
+        {
+            var product = _context.Products.SingleOrDefault(x => x.Id == productDto.Id);
+
+            if (product != null) 
+            {
+                _context.Products.Remove(product);
+                _context.SaveChanges();
+                return Ok("Delete success");
+            }
+
+            return Ok("Delete failed");
+        }
+
         public class IndexViewModel
         {
             
