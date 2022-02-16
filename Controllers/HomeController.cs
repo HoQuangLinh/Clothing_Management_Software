@@ -46,6 +46,26 @@ namespace Clothing_Management.Controllers
 			return new JsonResult(categories);
 		}
 
+        [Route("/api/products/search")]
+        [HttpPost]
+        public IActionResult SearchProduct([FromBody]string value)
+        {
+            if (string.IsNullOrEmpty(value))
+            {
+                return Ok("All");
+            }
+
+            var products = _context.Products.Where(
+                x => x.Name.Contains(value) || x.Id.ToString().Contains(value)).ToList();
+
+            if (products.Count <= 0)
+            {
+                return Ok("Failed");
+            }
+
+            return Ok(products);
+        }
+
         [Route("/api/products/new")]
         [HttpPost]
         public IActionResult NewProduct([FromForm]ProductDto productDto)

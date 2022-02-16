@@ -1,4 +1,5 @@
 ﻿import React, { useEffect, useState } from "react";
+import axios from 'axios';
 import AddProductModal from '../components/modal/AddProductModal.jsx'
 import UpdateProductModal from '../components/modal/UpdateProductModal.jsx'
 import DeleteProductDialog from "../components/dialog/DeleteProductDialog.jsx";
@@ -18,9 +19,7 @@ const Product = () => {
         "categoriesId": 0,
     })
     const [products, setProducts] = useState([]);
-    const [shirtType, setShirtType] = useState(0);
-    const [shirts, setShirts] = useState([]);
-    const [trouserType, setTrouserType] = useState(0);
+    const [categories, setCategories] = useState([]);
     const [trousers, setTrousers] = useState([]);
     const [showAddModal, setShowAddModal] = useState(false);
     const [showUpdateModal, setShowUpdateModal] = useState(false);
@@ -60,31 +59,64 @@ const Product = () => {
         xhr.send();
     };
 
-    const filterProductsFromServer = () => {
+    function filterProductsByCategory(value) {
         const xhr = new XMLHttpRequest();
         xhr.open("get", "/api/products", true);
         xhr.onload = () => {
             const data = JSON.parse(xhr.responseText);
-            setProducts(data);
+            setProducts([])
+            data.map((product) => {
+                //console.log('value', value)
+                //console.log('category id', product.categoriesId)
+                if (value === product.categoriesId.toString()) {
+                    setProducts(products => [...products, product])
+                    console.log('product', product.id)
+                }
+            })
+            if (value === "0") {
+                setProducts(data)
+            }
         };
         xhr.send();
     };
+
+    function searchProduct(value) {
+        //post data
+        axios.post("/api/products/search", JSON.stringify(value),
+        {
+            headers: {
+                "Content-Type": "application/json",
+            }
+        })
+        .then((res) => {
+            console.log(res.data);
+            if (res.data === "Failed") {
+                return;
+            }
+            if (res.data === "All") {
+                loadProductsFromServer()
+            } else {
+                setProducts([])
+                res.data.map((product) => {
+                    setProducts(products => [...products, product])
+                })
+            }
+
+        });
+    };
+
+    const handleSearchProduct = (event) => {
+        if (event.key === 'Enter') {
+            searchProduct(event.target.value)
+        }
+    }   
 
     const loadCategoriesFromServer = () => {
         const xhr = new XMLHttpRequest();
         xhr.open("get", "/api/categories", true);
         xhr.onload = () => {
             const data = JSON.parse(xhr.responseText);
-            data.forEach(item => {
-                let arr = item.name.split(' ')
-                 
-                if (arr[0] === "Áo") {
-                    setShirts(shirts => [...shirts, item])
-                }
-                if (arr[0] === "Quần") {
-                    setTrousers(trousers => [...trousers, item])
-                }
-            })
+            setCategories(data)
         };
         xhr.send();
     };
@@ -92,6 +124,7 @@ const Product = () => {
     useEffect(() => {
         loadCategoriesFromServer();
         loadProductsFromServer();
+        
     }, []);
 
     return (
@@ -117,29 +150,18 @@ const Product = () => {
             <div className="product-filter">
                 <div className="product-filter__card">
                     <h4>Tìm kiếm</h4>
-                    <input type="text" placeholder="Tìm theo mã, tên sản phẩm" />
+                    <input type="text" id="search" placeholder="Tìm theo mã, tên sản phẩm"
+                        onKeyPress={handleSearchProduct} />
                 </div>
                 <div className="product-filter__card">
-                    <h4>Các loại áo</h4>
-                    <select name="shirts" id="shirts" 
+                    <h4>Các loại áo quần</h4>
+                    <select name="categories" id="categories" 
                         onChange={(e) => {
-                            setShirtType(e.target.value)
+                            filterProductsByCategory(e.target.value)
                         }}>
                         <option value={0}>Tất cả</option>
-                        {shirts && shirts.map((shirt, index) => (
-                            <option key={index} value={shirt.id}>{shirt.name}</option>
-                        ))}
-                    </select>
-                </div>
-                <div className="product-filter__card">
-                    <h4>Các loại quần</h4>
-                    <select name="trousers" id="trousers"
-                        onChange={(e) => {
-                            setTrouserType(e.target.value)
-                        }}>
-                        <option value={0}>Tất cả</option>
-                        {trousers && trousers.map((trouser, index) => (
-                            <option key={index} value={trouser.id}>{trouser.name}</option>
+                        {categories && categories.map((category, index) => (
+                            <option key={index} value={category.id}>{category.name}</option>
                         ))}
                     </select>
                 </div>

@@ -6,20 +6,22 @@
     flex-direction: column;
 }
 .product-filter__card{
+    
     min-width: 250px;
     margin: 0 20px 20px 20px;
-    padding: 20px;
+    padding: 30px 20px;
     background-color: white;
     border-radius: 10px;
     border: 0.5px solid #a19b9b;
+    animation: onShow 0.4s linear;
 }
 .product-filter__card h4{
     font-size: 20px;
-    margin-bottom: 15px;
+    margin-bottom: 22px;
 }
 .product-filter__card input{
     width: 100%;
-    font-size: 15px;
+    font-size: 16px;
     padding: 6px 0;
     border-bottom: 1px solid #666;
 }
@@ -31,6 +33,20 @@
     padding: 6px 0;
     border-bottom: 1px solid #666;
 }
+
+@keyframes onShow {
+    0% {
+        transform: translate(0, -25%);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translate(0, 0%);
+        opacity: 1;
+    }
+}
+
+
 .btn-qrcode{
     margin: 0 auto;
     font-weight: bold;
