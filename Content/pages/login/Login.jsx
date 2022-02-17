@@ -6,7 +6,6 @@ import { useHistory } from "react-router";
 
 import { Link } from "react-router-dom";
 const Login = ({ isAuthenticated, authenticated }) => {
-  console.log(isAuthenticated);
   const history = useHistory();
   const [errorLogin, setErorLogin] = useState("");
   const submitForm = () => {

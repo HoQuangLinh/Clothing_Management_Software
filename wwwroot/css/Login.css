@@ -1,6 +1,7 @@
 .login-container {
   height: 100vh;
-  background: url(../images/login_main.jpg) no-repeat center/cover;
+  background: url(https://res.cloudinary.com/hoquanglinh/image/upload/v1645104405/login_main_zrt5kd.jpg)
+    no-repeat center/cover;
   filter: drop-shadow(0 0 8px black); /* FF~35 */
   filter: drop-shadow(0 0 0 8px black);
   background-color: #000000;
