@@ -1,0 +1,132 @@
+﻿:root {
+    --pimary-color: #349eff;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 999;
+}
+
+.modal__inner {
+    width: 65%;
+    top: 5%;
+    margin: auto;
+    position: relative;
+    background: white;
+    border-radius: 5px;
+    overflow: hidden;
+    animation: modalOpen 0.3s linear;
+}
+
+.modal__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background-color: var(--pimary-color);
+    color: white;
+}
+    .modal__header i {
+        font-size: 25px;
+        cursor: pointer;
+    }
+
+/* Body */
+.modal__body {
+    padding: 15px;
+}
+.add-product__row{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin: 0px 10px;
+}
+.add-product__field{
+    width: 50%;
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin-bottom: 28px;
+}
+.add-product__field span{
+    width: 150px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #666;
+}
+.add-product__field input{
+    border: 1px solid #666;
+    width: 60%;
+    padding: 8px;
+    border-radius: 5px;
+}
+.add-product__field select{
+    width: 60%;
+    padding: 8px 5px;
+    border-radius: 5px;
+    border: 1px solid #666;
+}
+.add-product__field img{
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    object-position: center;
+    cursor: pointer;
+}
+.add-product__field p{
+    position: absolute;
+    left: 34%;
+    bottom: -20px;
+    font-size: 13px;
+    color: red;
+}
+
+.modal__footer {
+    padding: 15px;
+    text-align: right;
+    display: flex;
+    justify-content: right;
+    
+}
+
+    .modal__footer button {
+        font-size: 14px;
+        margin: 0px 20px;
+        padding: 10px 20px;
+        color: white;
+        
+        border: none;
+        outline: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .modal__footer button:first-child{
+        background: var(--pimary-color);
+    }
+    .modal__footer button:last-child{
+        background: #666;
+    }
+.modal__footer button:hover {
+    opacity: calc(80%);
+}
+
+.hide {
+    display: none;
+}
+
+@keyframes modalOpen {
+    from {
+        top: -100px;
+        opacity: 0;
+    }
+
+    to {
+        top: 5%;
+        opacity: 1;
+    }
+}

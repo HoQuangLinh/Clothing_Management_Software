@@ -23,7 +23,6 @@ const useFormLogin = (callback, validate) => {
     });
   };
   const handleSubmit = (e) => {
-    console.log("handle Submit run");
     //check program whether have error or not, if have error then setError
     //if no error then submit form
     e.preventDefault();

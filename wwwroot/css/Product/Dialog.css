@@ -1,0 +1,67 @@
+:root {
+    --pimary-color: #349eff;
+}
+
+
+.dialog__inner{
+    width: 400px;
+    top: 35%;
+    margin: auto;
+    position: relative;
+    background: white;
+    border-radius: 5px;
+    overflow: hidden;
+    animation: dialogOpen 0.2s linear;
+}
+.dialog__header{
+    background-color: var(--pimary-color);
+    color: white;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.dialog__header h2{
+    font-size: 20px;
+}
+.dialog__header i{
+    font-size: 25px;
+    cursor: pointer;
+}
+.dialog__body{
+    padding: 15px;
+}
+.dialog__footer{
+    padding: 15px;
+    text-align: right;
+    display: flex;
+    justify-content: right;
+}
+.dialog__footer button{
+    font-size: 14px;
+    margin-left: 15px;
+    padding: 10px 15px;
+    color: white;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.dialog__footer button:first-child{
+    background: var(--pimary-color);
+}
+.dialog__footer button:last-child{
+    background-color: #666;
+}
+
+@keyframes dialogOpen {
+    from {
+        top: 20%;
+        opacity: 0;
+    }
+
+    to {
+        top: 35%;
+        opacity: 1;
+    }
+}

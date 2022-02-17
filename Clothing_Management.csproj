@@ -6,9 +6,6 @@
     <Compile Remove="Migrations\20220205034954_initialMigration.cs" />
     <Compile Remove="Migrations\20220205034954_initialMigration.Designer.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="wwwroot\" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="BCrypt.Net-Next" Version="4.0.2" />
@@ -21,7 +18,7 @@
     <PackageReference Include="JavaScriptEngineSwitcher.Extensions.MsDependencyInjection" Version="3.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.22" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.21" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.21">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.22">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>

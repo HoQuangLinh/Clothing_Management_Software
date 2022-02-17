@@ -7,7 +7,7 @@ namespace Clothing_Management.Models
 {
     public class Categories
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
 
         public ICollection<Product> Products { get; set; }

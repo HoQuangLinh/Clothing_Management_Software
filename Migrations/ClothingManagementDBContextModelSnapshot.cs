@@ -21,8 +21,10 @@ namespace Clothing_Management.Migrations
 
             modelBuilder.Entity("Clothing_Management.Models.Categories", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -113,7 +115,10 @@ namespace Clothing_Management.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProductId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ProductId1")
+                        .HasColumnType("int");
 
                     b.Property<float>("Quantity")
                         .HasColumnType("real");
@@ -122,18 +127,20 @@ namespace Clothing_Management.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.HasIndex("ProductId");
+                    b.HasIndex("ProductId1");
 
                     b.ToTable("OrderDetails");
                 });
 
             modelBuilder.Entity("Clothing_Management.Models.Product", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("CategoriesId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("CategoriesId")
+                        .HasColumnType("int");
 
                     b.Property<double>("CostPrice")
                         .HasColumnType("float");
@@ -153,8 +160,8 @@ namespace Clothing_Management.Migrations
                     b.Property<string>("QrCodeUrl")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Quantity")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
 
                     b.Property<double>("SalePrice")
                         .HasColumnType("float");
@@ -300,14 +307,16 @@ namespace Clothing_Management.Migrations
 
                     b.HasOne("Clothing_Management.Models.Product", "Product")
                         .WithMany("OrderDetails")
-                        .HasForeignKey("ProductId");
+                        .HasForeignKey("ProductId1");
                 });
 
             modelBuilder.Entity("Clothing_Management.Models.Product", b =>
                 {
                     b.HasOne("Clothing_Management.Models.Categories", "Categories")
                         .WithMany("Products")
-                        .HasForeignKey("CategoriesId");
+                        .HasForeignKey("CategoriesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Clothing_Management.Models.ReturnOrder", b =>

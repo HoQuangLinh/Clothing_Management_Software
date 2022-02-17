@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Clothing_Management.Models;
 using Clothing_Management.Dtos;
 using System.Linq;
-using System;
+
 namespace Clothing_Management.Controllers
 {
     public class UserController : Controller

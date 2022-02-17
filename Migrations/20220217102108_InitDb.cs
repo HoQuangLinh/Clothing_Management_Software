@@ -11,7 +11,8 @@ namespace Clothing_Management.Migrations
                 name: "Categories",
                 columns: table => new
                 {
-                    Id = table.Column<string>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -61,7 +62,8 @@ namespace Clothing_Management.Migrations
                 name: "Products",
                 columns: table => new
                 {
-                    Id = table.Column<string>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(nullable: true),
                     OriginPrice = table.Column<double>(nullable: false),
                     CostPrice = table.Column<double>(nullable: false),
@@ -70,8 +72,8 @@ namespace Clothing_Management.Migrations
                     ImageDisplay = table.Column<string>(nullable: true),
                     QrCodeUrl = table.Column<string>(nullable: true),
                     Size = table.Column<string>(nullable: true),
-                    Quantity = table.Column<string>(nullable: true),
-                    CategoriesId = table.Column<string>(nullable: true)
+                    Quantity = table.Column<int>(nullable: false),
+                    CategoriesId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -81,7 +83,7 @@ namespace Clothing_Management.Migrations
                         column: x => x.CategoriesId,
                         principalTable: "Categories",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -124,7 +126,8 @@ namespace Clothing_Management.Migrations
                     Id = table.Column<string>(nullable: false),
                     Quantity = table.Column<float>(nullable: false),
                     OrderId = table.Column<string>(nullable: true),
-                    ProductId = table.Column<string>(nullable: true)
+                    ProductId = table.Column<string>(nullable: true),
+                    ProductId1 = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -136,8 +139,8 @@ namespace Clothing_Management.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_OrderDetails_Products_ProductId",
-                        column: x => x.ProductId,
+                        name: "FK_OrderDetails_Products_ProductId1",
+                        column: x => x.ProductId1,
                         principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -200,9 +203,9 @@ namespace Clothing_Management.Migrations
                 column: "OrderId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrderDetails_ProductId",
+                name: "IX_OrderDetails_ProductId1",
                 table: "OrderDetails",
-                column: "ProductId");
+                column: "ProductId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Orders_CustomerId",

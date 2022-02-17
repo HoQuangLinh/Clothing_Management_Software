@@ -52,7 +52,7 @@ export default class HomeComponent extends Component {
               <Route
                 path="/products"
                 component={() => (
-                  <Product initialProducts={this.props.initialProducts} />
+                  <Product /> //showModal={this.showModal} />
                 )}
               />
               <Route path="/staffs" component={Staff} />
