@@ -13,7 +13,7 @@ namespace Clothing_Management.Dtos
 
         public string Address { get; set; }
         public float Point { get; set; }
-
+        public float Total { get; set; }
 
 
     }
