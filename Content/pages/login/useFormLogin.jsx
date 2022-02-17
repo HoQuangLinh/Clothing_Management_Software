@@ -1,5 +1,10 @@
 import { useState, useEffect } from "react";
-const useFormStaff = (callback, staff, setStaff, validate) => {
+const useFormLogin = (callback, validate) => {
+  const [user, setUser] = useState({
+    username: "",
+    password: "",
+  });
+
   const [errors, setErrors] = useState({});
   useEffect(() => {
     console.log(errors);
@@ -13,20 +18,19 @@ const useFormStaff = (callback, staff, setStaff, validate) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    setStaff((prev) => {
+    setUser((prev) => {
       return { ...prev, [name]: value };
     });
   };
-
   const handleSubmit = (e) => {
     //check program whether have error or not, if have error then setError
     //if no error then submit form
     e.preventDefault();
     setIsSubmiting(true);
     //validate(values)
-    setErrors(validate(staff));
+    setErrors(validate(user));
   };
 
-  return { handleChange, handleSubmit, errors };
+  return { handleChange, handleSubmit, user, errors };
 };
-export default useFormStaff;
+export default useFormLogin;

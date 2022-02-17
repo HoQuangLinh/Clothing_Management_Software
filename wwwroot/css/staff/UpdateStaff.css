@@ -1,10 +1,9 @@
-.add_staff-container {
+.update_staff-container {
   border: 1px solid #ddd;
   background-color: #fff;
   padding-bottom: 30px;
 }
-.add_staff-heading {
-  user-select: none;
+.update_staff-heading {
   position: relative;
   color: white;
   height: 90px;
@@ -14,14 +13,14 @@
   justify-content: center;
   padding-left: 30px;
 }
-.add_staff-body {
+.update_staff-body {
   display: flex;
   padding: 30px 0;
 }
-.add_staff-heading-tittle {
+.update_staff-heading-tittle {
   font-size: 20px;
 }
-.add_staff-heading-info {
+.update_staff-heading-info {
   font-size: 15px;
   position: absolute;
   left: 0px;
@@ -37,7 +36,7 @@
 
   background-color: #310ebb;
 }
-.add_staff-btn-exit {
+.update_staff-btn-exit {
   width: 15px;
   height: 15px;
   background-color: #62b4ff;
@@ -46,14 +45,12 @@
   top: 0;
   margin: 15px;
   cursor: pointer;
-  user-select: none;
 }
 
-.add_staff_img {
+.update_staff_img {
   display: flex;
   flex-direction: column;
   margin-left: 50px;
-  user-select: none;
 }
 
 .btn-pickImage {
@@ -61,14 +58,14 @@
   height: 30px;
   border: 1px solid #a19b9b;
   border-radius: 5px;
-  user-select: none;
+
   margin-top: 20px;
 }
-.add_staff-avatar {
+.update_staff-avatar {
   width: 130px;
   height: 130px;
 }
-.add_staff-form {
+.update_staff-form {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -76,7 +73,8 @@
   width: 770px;
 }
 
-.add_staff-form-row {
+.update_staff-form-row {
+  user-select: none;
   position: relative;
   width: 320px;
   display: flex;
@@ -84,17 +82,16 @@
   align-items: center;
   margin-bottom: 30px;
   margin-left: 40px;
-  user-select: none;
 }
-.add_staff-form-row > input {
+.update_staff-form-row > input {
   width: 65%;
-
+  user-select: none;
   padding: 10px;
   border: 1px solid #4e5052;
   border-radius: 5px;
 }
 
-.add_staff-form-error {
+.update_staff-form-error {
   position: absolute;
   left: 35%;
   top: -20px;
@@ -106,27 +103,27 @@
 .error {
   border: 1px solid red !important;
 }
-.add_staff-form-select {
+.update_staff-form-select {
   width: 65%;
 
   padding: 10px;
   border: 1px solid #4e5052;
   border-radius: 5px;
 }
-.add_staff-form-row > span {
+.update_staff-form-row > span {
   width: 35%;
 
   font-size: 14px;
   font-weight: 600;
   color: rgb(151, 150, 150);
 }
-.add_staff-btn-row {
+.update_staff-btn-row {
   display: flex;
   justify-content: flex-end;
   align-items: center;
   margin-right: 50px;
 }
-.add_staff-btn-save {
+.update_staff-btn-save {
   user-select: none;
   width: 100px;
   height: 40px;
@@ -135,7 +132,7 @@
   color: white;
   background-color: #4cb050;
 }
-.add_staff-btn-cancel {
+.update_staff-btn-cancel {
   user-select: none;
   width: 100px;
   height: 40px;

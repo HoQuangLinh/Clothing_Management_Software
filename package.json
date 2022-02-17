@@ -13,6 +13,8 @@
     "babel-preset-es2015": "^6.24.1",
     "emotion": "^9.2.12",
     "emotion-server": "^9.2.12",
+    "i": "^0.3.7",
+    "npm": "^8.5.0",
     "react": "^16.8.2",
     "react-dom": "^16.8.2",
     "react-emotion": "^9.2.12",

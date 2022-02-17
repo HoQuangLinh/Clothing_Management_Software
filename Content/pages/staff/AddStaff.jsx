@@ -1,43 +1,48 @@
 import React, { useState, useRef } from "react";
 
-import useFormStaff from "./form_validate/UseFormStaff.jsx";
-import validateAddStaff from "./form_validate/ValidateAddStaff.jsx";
+import useFormStaff from "./form_validate/useFormStaff.jsx";
+import validateAddStaff from "./form_validate/validateAddStaff.jsx";
 import axios from "axios";
 
 const AddStaff = ({ setShowFormAddStaff }) => {
   const inputAvatarRef = useRef(null);
 
   const [staff, setStaff] = useState({
-    username: "admin",
-    password: "111111",
-    confirmPassword: "111111",
-    phone: "111111",
-    address: "1111",
+    username: "",
+    password: "",
+    confirmPassword: "",
+    phone: "",
+    address: "",
     sex: "",
-    email: "hoquanglinh2710@gmail.com",
-    fullname: "aaaaa",
+    email: "",
+    fullname: "",
     gender: "Nam",
     position: "Nhân viên thu ngân",
   });
 
   //Call API
   const submitForm = () => {
-    console.log(avatar);
-    console.log(staff);
     var formStaff = new FormData();
     formStaff.append("username", staff.username);
     formStaff.append("password", staff.password);
     formStaff.append("fullname", staff.fullname);
     formStaff.append("address", staff.address);
-
     formStaff.append("gender", staff.gender);
     formStaff.append("position", staff.position);
     formStaff.append("email", staff.email);
     formStaff.append("phone", staff.phone);
     formStaff.append("image", avatar);
-    axios.post("/data/addStaff", formStaff).then((res) => {
-      console.log(res.data);
-    });
+
+    //Use HTTP Post Method to StaffsController
+    axios
+      .post("/data/addStaff", formStaff)
+      .then((res) => {
+        alert("Thêm nhân viên thành công");
+        setShowFormAddStaff(false);
+      })
+      .catch((error) => {
+        alert("Tên tài khoản hoặc email, số điện thoại đã có người sử dụng");
+      });
   };
   const { handleChange, handleSubmit, errors } = useFormStaff(
     submitForm,
@@ -81,6 +86,7 @@ const AddStaff = ({ setShowFormAddStaff }) => {
           <input
             ref={inputAvatarRef}
             type="file"
+            accept="image/png, image/gif, image/jpeg"
             onChange={onImageChange}
             style={{ display: "none" }}
           />

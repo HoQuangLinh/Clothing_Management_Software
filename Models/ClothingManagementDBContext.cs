@@ -19,6 +19,7 @@ namespace Clothing_Management.Models
         {
             modelBuilder.Entity<User>().HasIndex(u => u.Username).IsUnique();
             modelBuilder.Entity<User>().HasIndex(u => u.Email).IsUnique();
+            modelBuilder.Entity<User>().HasIndex(u => u.Phone).IsUnique();
 
         }
 

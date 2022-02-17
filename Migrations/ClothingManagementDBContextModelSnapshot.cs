@@ -97,8 +97,8 @@ namespace Clothing_Management.Migrations
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UserId1")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("UserId1")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -205,8 +205,8 @@ namespace Clothing_Management.Migrations
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UserId1")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("UserId1")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -240,10 +240,9 @@ namespace Clothing_Management.Migrations
 
             modelBuilder.Entity("Clothing_Management.Models.User", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
@@ -267,7 +266,7 @@ namespace Clothing_Management.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Position")
                         .HasColumnType("nvarchar(max)");
@@ -280,6 +279,10 @@ namespace Clothing_Management.Migrations
                     b.HasIndex("Email")
                         .IsUnique()
                         .HasFilter("[Email] IS NOT NULL");
+
+                    b.HasIndex("Phone")
+                        .IsUnique()
+                        .HasFilter("[Phone] IS NOT NULL");
 
                     b.HasIndex("Username")
                         .IsUnique()

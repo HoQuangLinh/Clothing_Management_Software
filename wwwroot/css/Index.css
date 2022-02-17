@@ -165,6 +165,7 @@ table {
 
   border-spacing: 0;
 }
+
 @media screen {
   .title-print {
     display: none;

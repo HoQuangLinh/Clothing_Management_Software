@@ -2,15 +2,18 @@ import React, { useState, useEffect } from "react";
 
 import axios from "axios";
 import AddStaff from "./AddStaff.jsx";
-//import UpdateStaff from "./UpdateStaff/UpdateStaff";
+import UpdateStaff from "./UpdateStaff.jsx";
+import Dialog from "../../components/dialog/Dialog.jsx";
 
 const Staff = (props) => {
   const [staffs, setStaffs] = useState([]);
+  const [selectedStaff, setSelectedStaff] = useState({});
   const [originStaffs, setOriginStaffs] = useState([]);
   const [position, setPosition] = useState("all");
   const [textSearch, setTextSearch] = useState("");
   const [showFormAddStaff, setShowFormAddStaff] = useState(false);
-
+  const [showFormUpdateStaff, setShowFormUpdateStaff] = useState(false);
+  const [showModalDelete, setShowModalDelete] = useState(false);
   //Get All Staffs from StaffControler
   useEffect(() => {
     axios
@@ -22,7 +25,7 @@ const Staff = (props) => {
       .catch((err) => {
         console.log(err.response);
       });
-  }, []);
+  }, [showFormAddStaff, showFormUpdateStaff, showModalDelete]);
 
   //Filter Staffs By Position
   useEffect(() => {
@@ -58,29 +61,50 @@ const Staff = (props) => {
       setStaffs(staffFilter);
     }
   }, [textSearch]);
+
+  //Handle Delete a selected staff
+  const handleDeleteStaff = (id) => {
+    axios
+      .delete(`/data/staffs/delete/${id}`)
+      .then((res) => {
+        alert("Bạn đã xoá nhân viên thành công");
+        setShowModalDelete(false);
+      })
+      .catch((err) => {
+        alert("Rất tiếc nhân viên này hiện tại không thể xoá");
+      });
+  };
   return (
-    <div className="div_staff">
+    <div className="staff-container">
       {showFormAddStaff && (
-        <div
-          style={{
-            position: "fixed",
-            left: 0,
-            top: 0,
-            zIndex: 1300,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            inset: 0,
-            backgroundColor: "rgba(0, 0, 0, 0.5)",
-          }}
-        >
+        <div className="staff-show-modal">
           <AddStaff setShowFormAddStaff={setShowFormAddStaff} />
         </div>
       )}
-      <div className="div_left">
-        <div className="div_search">
-          <div className="header_search">Tìm kiếm</div>
-          <div className="search">
+      {showFormUpdateStaff && (
+        <div className="staff-show-modal">
+          <UpdateStaff
+            staffId={selectedStaff.id}
+            setShowFormUpdateStaff={setShowFormUpdateStaff}
+          />
+        </div>
+      )}
+      {showModalDelete && (
+        <Dialog
+          handleAction={() => {
+            handleDeleteStaff(selectedStaff.id);
+          }}
+          handleCancel={() => {
+            setShowModalDelete(false);
+          }}
+          title="Xoá nhân viên"
+          content={`Bạn có muốn xoá nhân viên ${selectedStaff.fullname}`}
+        />
+      )}
+      <div className="staff-container-left">
+        <div className="staff-container-search">
+          <div className="staff-container-search-header">Tìm kiếm</div>
+          <div className="staff-container-search-input">
             <input
               type="text"
               placeholder="Tìm theo mã, tên nhân viên"
@@ -92,12 +116,11 @@ const Staff = (props) => {
             <i className="bx bx-search"></i>
           </div>
         </div>
-        <div className="div_search">
-          <div className="header_search">Chức vụ</div>
+        <div className="staff-container-search">
+          <div className="staff-container-search-header">Chức vụ</div>
           <select
             onClick={(event) => {
               setPosition(event.target.value);
-              console.log(event.target.value);
             }}
             className="selectbox"
           >
@@ -117,7 +140,7 @@ const Staff = (props) => {
           </button>
         </div>
       </div>
-      <div className="div_right">
+      <div className="staff-container-right">
         <div style={{ padding: "10px 0px 10px 10px" }}>
           <div class="staff-table-container">
             <table id="staff-table">
@@ -128,17 +151,52 @@ const Staff = (props) => {
                   <th>Chức vụ</th>
                   <th>Số điện thoại</th>
                   <th>Giới tính</th>
+                  <th></th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>
                 {staffs.map((staff, index) => {
                   return (
-                    <tr>
-                      <td>{staff.id}</td>
+                    <tr
+                      onClick={() => {
+                        setSelectedStaff(staff);
+                      }}
+                      key={index}
+                    >
+                      <td>{staff.id.substring(0, 8)}</td>
                       <td>{staff.fullname}</td>
                       <td>{staff.position}</td>
                       <td>{staff.phone}</td>
                       <td>{staff.gender}</td>
+                      <td
+                        onClick={() => {
+                          setShowFormUpdateStaff(true);
+                        }}
+                      >
+                        <i
+                          style={{
+                            fontSize: 18,
+                            color: "#0DB3E2",
+                            cursor: "pointer",
+                          }}
+                          class="bx bxs-edit"
+                        ></i>
+                      </td>
+                      <td
+                        onClick={() => {
+                          setShowModalDelete(true);
+                        }}
+                      >
+                        <i
+                          style={{
+                            fontSize: 18,
+                            color: "#F26339",
+                            cursor: "pointer",
+                          }}
+                          class="bx bx-trash"
+                        ></i>
+                      </td>
                     </tr>
                   );
                 })}
