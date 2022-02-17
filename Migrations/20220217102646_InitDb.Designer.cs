@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Clothing_Management.Migrations
 {
     [DbContext(typeof(ClothingManagementDBContext))]
-    [Migration("20220216135334_InitDb")]
+    [Migration("20220217102646_InitDb")]
     partial class InitDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,8 +23,10 @@ namespace Clothing_Management.Migrations
 
             modelBuilder.Entity("Clothing_Management.Models.Categories", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -97,8 +99,8 @@ namespace Clothing_Management.Migrations
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UserId1")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("UserId1")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -118,7 +120,10 @@ namespace Clothing_Management.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProductId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ProductId1")
+                        .HasColumnType("int");
 
                     b.Property<float>("Quantity")
                         .HasColumnType("real");
@@ -127,18 +132,20 @@ namespace Clothing_Management.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.HasIndex("ProductId");
+                    b.HasIndex("ProductId1");
 
                     b.ToTable("OrderDetails");
                 });
 
             modelBuilder.Entity("Clothing_Management.Models.Product", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("CategoriesId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("CategoriesId")
+                        .HasColumnType("int");
 
                     b.Property<double>("CostPrice")
                         .HasColumnType("float");
@@ -158,8 +165,8 @@ namespace Clothing_Management.Migrations
                     b.Property<string>("QrCodeUrl")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Quantity")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
 
                     b.Property<double>("SalePrice")
                         .HasColumnType("float");
@@ -200,8 +207,8 @@ namespace Clothing_Management.Migrations
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UserId1")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("UserId1")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -235,10 +242,9 @@ namespace Clothing_Management.Migrations
 
             modelBuilder.Entity("Clothing_Management.Models.User", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
@@ -262,7 +268,7 @@ namespace Clothing_Management.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Position")
                         .HasColumnType("nvarchar(max)");
@@ -275,6 +281,10 @@ namespace Clothing_Management.Migrations
                     b.HasIndex("Email")
                         .IsUnique()
                         .HasFilter("[Email] IS NOT NULL");
+
+                    b.HasIndex("Phone")
+                        .IsUnique()
+                        .HasFilter("[Phone] IS NOT NULL");
 
                     b.HasIndex("Username")
                         .IsUnique()
@@ -302,14 +312,16 @@ namespace Clothing_Management.Migrations
 
                     b.HasOne("Clothing_Management.Models.Product", "Product")
                         .WithMany("OrderDetails")
-                        .HasForeignKey("ProductId");
+                        .HasForeignKey("ProductId1");
                 });
 
             modelBuilder.Entity("Clothing_Management.Models.Product", b =>
                 {
                     b.HasOne("Clothing_Management.Models.Categories", "Categories")
                         .WithMany("Products")
-                        .HasForeignKey("CategoriesId");
+                        .HasForeignKey("CategoriesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Clothing_Management.Models.ReturnOrder", b =>
