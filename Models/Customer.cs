@@ -14,7 +14,7 @@ namespace Clothing_Management.Models
         public string Email { get; set; }
         public string Gender { get; set; }
         public float Point { get; set; }
-
+        public float Total { get; set; }
         public ICollection<Order> Orders { get; set; }
     }
 }

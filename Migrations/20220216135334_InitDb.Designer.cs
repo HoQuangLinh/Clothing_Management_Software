@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Clothing_Management.Migrations
 {
     [DbContext(typeof(ClothingManagementDBContext))]
-    [Migration("20220210130907_InitialDb")]
-    partial class InitialDb
+    [Migration("20220216135334_InitDb")]
+    partial class InitDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -55,6 +55,9 @@ namespace Clothing_Management.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<float>("Point")
+                        .HasColumnType("real");
+
+                    b.Property<float>("Total")
                         .HasColumnType("real");
 
                     b.HasKey("Id");

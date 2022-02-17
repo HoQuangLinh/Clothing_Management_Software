@@ -104,8 +104,8 @@ namespace Clothing_Management.Data
                                 Address="Lộc Ninh, Bình Phước",
                                 Email="hoquanglinh2710@gmail.com",
                                 Gender="Nam",
-                                // Total=100000,
-                                Point=1200,
+                                Total=112000,
+                                Point=1400,
                             },  new Customer(){
                                 Id="2",
                                 Name="Nguyễn Tiến Đạt",
@@ -113,8 +113,8 @@ namespace Clothing_Management.Data
                                 Address="Lộc Ninh, Bình Phước",
                                 Email="hoquanglinh2710@gmail.com",
                                 Gender="Nam",
-                                // Total=100000,
-                                Point=1200,
+                                Total=150600,
+                                Point=1000,
                             },
                                 new Customer(){
                                 Id="3",
@@ -123,8 +123,8 @@ namespace Clothing_Management.Data
                                 Address="Lộc Ninh, Bình Phước",
                                 Email="hoquanglinh2710@gmail.com",
                                 Gender="Nam",
-                                // Total=100000,
-                                Point=1200,
+                                Total=155000,
+                                Point=700,
                             },
                                 new Customer(){
                                 Id="4",
@@ -133,8 +133,8 @@ namespace Clothing_Management.Data
                                 Address="Lộc Ninh, Bình Phước",
                                 Email="hoquanglinh2710@gmail.com",
                                 Gender="Nam",
-                                // Total=100000,
-                                Point=1200,
+                                Total=140000,
+                                Point=400,
                             },
                                 new Customer(){
                                 Id="5",
@@ -143,8 +143,8 @@ namespace Clothing_Management.Data
                                 Address="Lộc Ninh, Bình Phước",
                                 Email="hoquanglinh2710@gmail.com",
                                 Gender="Nam",
-                                // Total=100000,
-                                Point=1200,
+                                Total=120000,
+                                Point=200,
                             },
                         };
                     context.Customers.AddRange(customers);

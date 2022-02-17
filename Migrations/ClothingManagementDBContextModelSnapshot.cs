@@ -55,6 +55,9 @@ namespace Clothing_Management.Migrations
                     b.Property<float>("Point")
                         .HasColumnType("real");
 
+                    b.Property<float>("Total")
+                        .HasColumnType("real");
+
                     b.HasKey("Id");
 
                     b.ToTable("Customers");

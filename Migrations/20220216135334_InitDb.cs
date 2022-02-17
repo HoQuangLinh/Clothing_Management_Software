@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Clothing_Management.Migrations
 {
-    public partial class InitialDb : Migration
+    public partial class InitDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -29,7 +29,8 @@ namespace Clothing_Management.Migrations
                     Address = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: true),
                     Gender = table.Column<string>(nullable: true),
-                    Point = table.Column<float>(nullable: false)
+                    Point = table.Column<float>(nullable: false),
+                    Total = table.Column<float>(nullable: false)
                 },
                 constraints: table =>
                 {
