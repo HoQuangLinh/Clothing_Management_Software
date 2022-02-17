@@ -1,6 +1,36 @@
+.customers_navbar_container {
+  margin-left: 310px;
+  justify-content: space-between;
+  display: flex;
+}
+.list-action-customers-btn {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-right: 25px;
+  
+}
+.action-customers-btn {
+  cursor: pointer;
+  font-size: 18px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  color: #fff;
+  background-color: #4cb050;
+  
+}
+.action-customers-btn:first-child {
+  margin-right: 10px;
+}
+
+/*  */
 .customers_content {
     margin-top: 30px;
     display: flex;
+    margin-left: 20px;
+    
   }
   .customer-card {
     border: 1px solid #a19b9b;
@@ -39,11 +69,14 @@
   .timer-choice {
     width: 25%;
   }
-
+  .div_right {
+    margin-left: 40px;
+    width: 900px;
+    margin-top: -10px;
+  }
   #customer-table {
     width: 100%;
     max-height: 350px;
-  
     border: 1px solid #ddd;
     border-radius: 10px;
     border-spacing: 0;

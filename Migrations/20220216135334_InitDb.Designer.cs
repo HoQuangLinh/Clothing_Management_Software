@@ -4,14 +4,16 @@ using Clothing_Management.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Clothing_Management.Migrations
 {
     [DbContext(typeof(ClothingManagementDBContext))]
-    partial class ClothingManagementDBContextModelSnapshot : ModelSnapshot
+    [Migration("20220216135334_InitDb")]
+    partial class InitDb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,10 +23,8 @@ namespace Clothing_Management.Migrations
 
             modelBuilder.Entity("Clothing_Management.Models.Categories", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -118,10 +118,7 @@ namespace Clothing_Management.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProductId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("ProductId1")
-                        .HasColumnType("int");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<float>("Quantity")
                         .HasColumnType("real");
@@ -130,20 +127,18 @@ namespace Clothing_Management.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.HasIndex("ProductId1");
+                    b.HasIndex("ProductId");
 
                     b.ToTable("OrderDetails");
                 });
 
             modelBuilder.Entity("Clothing_Management.Models.Product", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("CategoriesId")
-                        .HasColumnType("int");
+                    b.Property<string>("CategoriesId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<double>("CostPrice")
                         .HasColumnType("float");
@@ -163,8 +158,8 @@ namespace Clothing_Management.Migrations
                     b.Property<string>("QrCodeUrl")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
+                    b.Property<string>("Quantity")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("SalePrice")
                         .HasColumnType("float");
@@ -307,16 +302,14 @@ namespace Clothing_Management.Migrations
 
                     b.HasOne("Clothing_Management.Models.Product", "Product")
                         .WithMany("OrderDetails")
-                        .HasForeignKey("ProductId1");
+                        .HasForeignKey("ProductId");
                 });
 
             modelBuilder.Entity("Clothing_Management.Models.Product", b =>
                 {
                     b.HasOne("Clothing_Management.Models.Categories", "Categories")
                         .WithMany("Products")
-                        .HasForeignKey("CategoriesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CategoriesId");
                 });
 
             modelBuilder.Entity("Clothing_Management.Models.ReturnOrder", b =>
