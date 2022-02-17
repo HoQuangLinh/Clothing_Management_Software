@@ -94,9 +94,86 @@ namespace Clothing_Management.Data
                     context.Users.AddRange(users);
                     context.SaveChanges();
                 }
-                 if (!context.Customers.Any())
+                if (!context.Categories.Any())
                 {
-                    List<Customer> customers = new List<Customer>(){
+                    List<Categories> categories = new List<Categories>()
+                    {
+                        new Categories()
+                        {
+                            Name = "Áo thun", //1
+                        },
+                        new Categories()
+                        {
+                            Name = "Áo khoác", //2
+                        },
+                        new Categories()
+                        {
+                            Name = "Áo sơ mi", //3
+                        },
+                        new Categories()
+                        {
+                            Name = "Quần jean", //4
+                        },
+                        new Categories()
+                        {
+                            Name = "Quần tây", //5
+                        },
+                        new Categories()
+                        {
+                            Name = "Quần đùi", //6
+                        }
+                    };
+                    context.Categories.AddRange(categories);
+                    context.SaveChanges();
+                }  
+                if (!context.Products.Any())
+                {
+                    List<Product> products = new List<Product>()
+                    {
+                        new Product()
+                        {
+                            Name = "Áo ca ki",
+                            OriginPrice = 20000,
+                            CostPrice = 21000,
+                            Discount = 0,
+                            SalePrice = 21000,
+                            ImageDisplay = "",
+                            QrCodeUrl = "",
+                            Size = "XL",
+                            Quantity = 20,
+                            CategoriesId = 1,
+                        },
+                        new Product()
+                        {
+                            Name = "Áo sơ mi xanh",
+                            OriginPrice = 50000,
+                            CostPrice = 51000,
+                            Discount = 0,
+                            SalePrice = 51000,
+                            ImageDisplay = "",
+                            QrCodeUrl = "",
+                            Size = "L",
+                            Quantity = 50,
+                            CategoriesId = 3,
+                        },
+                        new Product()
+                        {
+                            Name = "Quần jean 2021",
+                            OriginPrice = 30000,
+                            CostPrice = 31000,
+                            Discount = 0,
+                            SalePrice = 31000,
+                            ImageDisplay = "",
+                            QrCodeUrl = "",
+                            Size = "L",
+                            Quantity = 30,
+                            CategoriesId = 4,
+                        }
+                    };
+                    context.Products.AddRange(products);
+                    if (!context.Customers.Any())
+                    {
+                        List<Customer> customers = new List<Customer>(){
                             new Customer(){
                                 Id="1",
                                 Name="Hồ Quang Linh",
@@ -149,6 +226,7 @@ namespace Clothing_Management.Data
                         };
                     context.Customers.AddRange(customers);
                     context.SaveChanges();
+                    }
                 }
             }
         }

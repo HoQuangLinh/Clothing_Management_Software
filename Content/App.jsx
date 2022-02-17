@@ -14,10 +14,13 @@ import Sidebar from "./components/sidebar/Sidebar.jsx";
 import Product from "./pages/Product.jsx";
 import Staff from "./pages/staff/Staff.jsx";
 import Customer from "./pages/customer/customer.jsx";
+
 export default class HomeComponent extends Component {
+
   render() {
     const app = (
-      <div>
+        <div>
+            
         <Sidebar />
         <div className="layout__content">
           <Navbar />
@@ -28,9 +31,9 @@ export default class HomeComponent extends Component {
               <Route
                 path="/products"
                 component={() => (
-                  <Product initialProducts={this.props.initialProducts} />
-                )}
-              />
+                    <Product />//showModal={this.showModal} />
+                    )}
+            />
               <Route path="/staffs" component={Staff} />
               <Route path="/customers" component={Customer} />
               <Route
